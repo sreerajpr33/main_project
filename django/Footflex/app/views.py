@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from . models import*
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 def shop_home(req):
@@ -48,4 +49,16 @@ def user_home(req):
     return render(req,'user/user_home.html')
 
 def register(req):
-    return render(req,'user/register.html')
+    if req.method=='POST':
+        uname=req.POST['uname']
+        email=req.POST['email']
+        pswd=req.POST['pswd']
+        try:
+            data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
+            data.save()
+        except:
+            messages.info(req, "already in use")
+            return redirect(register)
+        return redirect(ff_login)
+    else:
+        return render(req,'user/register.html')
