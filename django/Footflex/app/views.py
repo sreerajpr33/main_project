@@ -7,11 +7,11 @@ from django.contrib import messages
 def shop_home(req):
     if 'shop' in req.session:
         data=Product.objects.all()
-        return render(req,'shop/shophome.html',{'products':data})
+        return render(req,'shop/shophome.html',{'Products':data})
     else:
-        return redirect(login)
+        return redirect(ff_login)
 
-def login(req):
+def ff_login(req):
     if 'shop' in req.session:
         return redirect(shop_home)
     if 'user' in req.session:
@@ -30,10 +30,17 @@ def login(req):
                 return redirect(user_home)
         else:
             messages.info(req, " ")
-            return redirect(login)
+            return redirect(ff_login)
     else:
         return render(req,'Login.html')
-
+    
+def ff_logout(req):
+    if 'shop' in req.session or 'user' in req.session:
+        logout(req)
+        req.session.flush()
+        return redirect(ff_login)
+    else:
+        return redirect(ff_login)
 
 # --------------------user-------------------
 

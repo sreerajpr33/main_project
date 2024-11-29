@@ -27,23 +27,33 @@ body {
 .container {
     z-index: 1; /* Ensure the content is on top of the background */
 }
+.vid{
+    width:10vw;
+    height:10vw;
+}
+
+.video-logo{
+    width:100%;
+    height:100%;
+} 
     </style>
 </head>
 <body>
-    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="container vh-80 d-flex flex-column justify-content-center align-items-center">
         <!-- Video Animation -->
-        {% comment %} <div class="d-flex justify-content-center vid mb-4">
-            <video autoplay muted playsinline class="video-logo" style="max-width: 100%; height: auto;">
+         <div class="d-flex justify-content-center vid mb-1 mt-5">
+            <video autoplay muted playsinline class="video-logo">
                 <source src="{% static 'videos/FLEX.mp4' %}" type="video/mp4">
             </video>
-        </div> {% endcomment %}
+        </div>  
         <!-- Login Form -->
         <div class="card shadow-sm p-4 formdiv w-100" style="max-width: 400px;">
-            <h2 class="text-center mb-4">Login</h2>
-            <form action="/login" method="post">
+            <h2 class="text-center text-dark mb-4">Login</h2>
+            <form action="" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="username" class="form-label"><b>Username/Email</b></label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username or email" required>
+                    <input type="text" class="form-control" id="username" name="uname" placeholder="Enter your username or email" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label"><b>Password</b></label>
@@ -52,7 +62,7 @@ body {
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <p class="text-center mt-3">
-                Don't have an account? <a href="register" class="text-primary">Sign up here</a>
+                Don't have an account? <a href="register" class="text-dark">Sign up here</a>
             </p>
         </div>
     </div>

@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx2Yn+N8tV2T7vK5AKDYq+rFdAP7rK6l+wb7q0ppTH0GhDB/jp+32lG/3pM" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&display=swap');
+
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /* Sidebar */
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            padding-top: 20px;
+            z-index: 100;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-link {
+            color: rgb(0, 0, 0);
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: #495057;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        /* Adjust for collapsed sidebar */
+        .content.collapsed {
+            margin-left: 0;
+        }
+        .navbar-toggler{
+            background-color: rgb(39, 234, 234);
+            border:none;
+            border-radius: 20px;
+            height:30px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            #sidebar.collapsed {
+                transform: translateX(0);
+            } 
+        }
+    </style>
 </head>
 <body>
-    <h1>hi</h1>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-dark admsidebar" id="sidebar">
+            <div class="logo">
+                <img src="{% static 'img/FLEX.png' %}" alt="Logo" class="img-fluid" style="max-width: 150px;">
+            </div>
+            <nav>
+                <a href="#" class="sidebar-link"><b>Add Product</b></a>
+                <a href="#" class="sidebar-link"><b>Update Product</b></a>
+                <a href="#" class="sidebar-link"><b>View Product</b></a>
+                <a href="#" class="sidebar-link"><b>Delete Product</b></a>
+                <a href="#" class="sidebar-link"><b>View Booking</b></a>
+                <a href="#" class="sidebar-link"><b>Customer Details</b></a>
+                <a href="logout" class="sidebar-link"><b>Logout</b></a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div>
+                <h1>Welcome to Admin Dashboard</h1>
+                <p>Here you can manage your products, view bookings, and access customer details.</p>
+            </div>
+            <!-- Navbar with toggle button -->
+            <nav class="navbar navbar-light bg-light">
+                <button class="navbar-toggler" type="button" id="toggleSidebar">
+                    <span class="navbar-toggler-icon">OPEN DASHBOARD</span>
+                </button>
+                <!-- <a class="navbar-brand" href="#">Admin Dashboard</a> -->
+            </nav>
+
+            <!-- Page content -->
+            
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0Ho0Fq0+nAz5E4rOU2ZGb2Vr13+Ot2g/98kPp1NJkqE6Dke/" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript to toggle the sidebar
+        const sidebar = document.getElementById('sidebar');
+        const content = document.querySelector('.content');
+        const toggleButton = document.getElementById('toggleSidebar');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        });
+    </script>
 </body>
 </html>

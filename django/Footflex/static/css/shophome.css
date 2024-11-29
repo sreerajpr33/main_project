@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    font-family: 'Fira Sans', serif;
+}
+        /* Custom styles for sidebar */
+        #sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    padding-top: 20px;
+    z-index: 100;
+}
+
+.sidebar-link {
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #495057;
+}
+
+.logo {
+text-align: center;
+padding: 20px 0;
+}
+
+.logo img {
+max-width: 100%; /* Ensures responsiveness */
+height: auto;    /* Maintains aspect ratio */
+margin: 0 auto;  /* Centers the logo */
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #sidebar {
+        width:100px;
+    }
+    .content {
+        margin-left: 100px;
+    }
+    .logo img {
+width: 80px;
+height: 80px;
+}
+}
