@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOTFLEX - Register</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <style>
+        body {
+            font-family: 'Fira Sans', serif;
+            background-image: url("{% static 'img/pexels-mstudio-360817-1240892.jpg' %}"); /* Replace 'background.jpg' with your image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Optional for parallax effect */
+        }
+        .formdiv {
+            background: rgba(26, 156, 207, 0.9); /* Add a white semi-transparent background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+        <!-- Registration Form -->
+        <div class="card shadow p-4 w-100 formdiv" style="max-width: 400px;">
+            <h2 class="text-center mb-4">Register</h2>
+            <form action="/register" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label"><b>Full Name</b></label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label"><b>Email</b></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label"><b>Address</b></label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label"><b>Password</b></label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger mt-3">
+                <strong>{{ message }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <p class="text-center mt-3">
+                Already have an account? <a href="login" class="text-primary">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

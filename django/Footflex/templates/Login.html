@@ -4,21 +4,41 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5 Login Page</title>
+    <title>FOOTFLEX</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        .formdiv{
+    width: 100%;
+    max-width: 400px;
+    background: rgba(26, 156, 207, 0.9);
+    color:white
+}
+body {
+    font-family: 'Fira Sans', serif;
+    background-image: url("{% static 'img/pexels-mstudio-360817-1240892.jpg' %}"); /* Replace 'background.jpg' with your image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional for parallax effect */
+    margin: 0;
+    padding: 0;
+}
+.container {
+    z-index: 1; /* Ensure the content is on top of the background */
+}
+    </style>
 </head>
-<body class="" style="font-family: 'Fira Sans', serif;">
+<body>
     <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
         <!-- Video Animation -->
-        <div class=" d-flex justify-content-center vid ">
-            <video autoplay muted playsinline class="video-logo">
+        {% comment %} <div class="d-flex justify-content-center vid mb-4">
+            <video autoplay muted playsinline class="video-logo" style="max-width: 100%; height: auto;">
                 <source src="{% static 'videos/FLEX.mp4' %}" type="video/mp4">
             </video>
-        </div>
+        </div> {% endcomment %}
         <!-- Login Form -->
-        <div class="card shadow-sm p-4 formdiv">
+        <div class="card shadow-sm p-4 formdiv w-100" style="max-width: 400px;">
             <h2 class="text-center mb-4">Login</h2>
             <form action="/login" method="post">
                 <div class="mb-3">
@@ -32,7 +52,7 @@
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
             <p class="text-center mt-3">
-                Don't have an account? <a href="/register" class="text-primary">Sign up here</a>
+                Don't have an account? <a href="register" class="text-primary">Sign up here</a>
             </p>
         </div>
     </div>
