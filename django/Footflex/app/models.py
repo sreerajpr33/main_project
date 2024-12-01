@@ -10,3 +10,4 @@ class Product(models.Model):
     stock=models.IntegerField()
     size=models.IntegerField()
     img=models.FileField()
+    caregory=models.TextField()
