@@ -44,7 +44,7 @@ def ff_logout(req):
         return redirect(ff_login)
     
 def carousel(req):
-    return render('carousel.html')
+    return render(req,'shop/carousels.html')
 
 # --------------------user-------------------
 
