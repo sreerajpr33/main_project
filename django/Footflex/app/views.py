@@ -44,13 +44,47 @@ def ff_logout(req):
         return redirect(ff_login)
     
 def carousel(req):
-    return render(req,'shop/carousels.html')
+    if 'shop' in req.session:
+        if req.method=='POST':
+            image1=req.FILES.get('img1')
+            image2=req.FILES.get('img2')
+            image3=req.FILES.get('img3')
+            data=Banner.objects.all()
+            id=[ i.pk for i in data ]
+            # print(id[0])
+            if not(data):
+                data=Banner.objects.create(pic1=image1,pic2=image2,pic3=image3)
+                data.save()
+            else :
+                data1=Banner.objects.get(pk=id[0])
+                if image1:
+                    data1.pic1=image1
+                if image2:
+                    data1.pic2=image2
+                if image3:
+                    data1.pic3=image3
+                data1.save()
+            return redirect(shop_home)
+        else:
+            return render(req,'shop/carousels.html')
+    else:
+        return render(ff_login)
+
+def addpro(req):
+    if 'shop' in req.session: 
+        return render(req,'shop/addpro.html')
+    else:
+        return render(ff_login)
 
 # --------------------user-------------------
 
 def user_home(req):
-    return render(req,'user/user_home.html')
-
+    if 'user'in req.session:
+        banner=Banner.objects.all()[::-1][:1]
+        print(banner)
+        return render(req,'user/user_home.html',{'banners':banner})
+    else:
+        return redirect(ff_login)
 def register(req):
     if req.method=='POST':
         uname=req.POST['uname']
@@ -65,3 +99,4 @@ def register(req):
         return redirect(ff_login)
     else:
         return render(req,'user/register.html')
+    
