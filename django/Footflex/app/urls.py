@@ -8,4 +8,5 @@ urlpatterns=[
     path('user_home',views.user_home), 
     path('carousel',views.carousel),
     path('addpro',views.addpro),
+    path('addbrand',views.brand)
 ]

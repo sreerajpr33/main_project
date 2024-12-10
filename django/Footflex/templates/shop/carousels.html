@@ -5,25 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx2Yn+N8tV2T7vK5AKDYq+rFdAP7rK6l+wb7q0ppTH0GhDB/jp+32lG/3pM" crossorigin="anonymous">
-    <link rel="stylesheet" href="{%static 'css\shop\banner.css' %}">
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/shop/banner.css' %}">
     <style>
         
     </style>
 </head>
 <body>
-
-    <div class="d-flex" id="wrapper">
-
+    <div class="d-flex">
         <!-- Sidebar -->
-        <div class="bg-dark admsidebar" id="sidebar">
+        <div id="sidebar">
             <div class="logo">
                 <a href="shop_home"><img src="{% static 'img/FLEX.png' %}" alt="Logo" class="img-fluid" style="max-width: 150px;"></a>
             </div>
             <nav>
-                <a href="#" class="sidebar-link"><b>Update Banners</b></a>
-                <a href="#" class="sidebar-link"><b>Add Brand</b></a>
+                <a href="carousel" class="sidebar-link"><b>Update Banners</b></a>
+                <a href="addbrand" class="sidebar-link"><b>Add Brand</b></a>
                 <a href="#" class="sidebar-link"><b>Add Size</b></a>
                 <a href="addpro" class="sidebar-link"><b>Add Product</b></a>
                 <a href="#" class="sidebar-link"><b>Update Product</b></a>
@@ -36,32 +34,42 @@
         </div>
 
         <!-- Main Content -->
-            <nav class="navbar navbar-light bg-light ">
-                <div>
-                    <h1>UPDATE BANNER</h1>
-                </div>
-                <div><button class="navbar-toggler" type="button" id="toggleSidebar">
-                    <span class="navbar-toggler-icon">OPEN DASHBOARD</span>
-                </button></div>
+        <div class="content">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <span class="navbar-brand">Update Banner</span>
+                <button class="navbar-toggler" type="button" id="toggleSidebar">
+                    <span>☰ Toggle Sidebar</span>
+                </button>
             </nav>
+        </div>
     </div>
 
-    <!-- Body -->
-    <div class="container1">
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <ul>
-                <li><h4>UPDATE BANNERS</h4></li>
-                <li><label for=""class="banners"><b>banner1</b></label> <input type="file" name="img1"></li>
-                <li><label for=""class="banners"><b>banner2</b></label> <input type="file" name="img2"></li>
-                <li><label for=""class="banners"><b>banner3</b></label> <input type="file" name="img3"></li>
-                <li><input type="submit" class="but"></li>
-            </ul>
-        </form>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="card shadow-sm p-4" style="width: 400px;">
+            <h4 class="text-center mb-4">Update Banners</h4>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="banner1" class="form-label"><b>Banner 1</b></label>
+                    <input type="file" class="form-control form-control-sm" id="banner1" name="img1">
+                </div>
+                <div class="mb-3">
+                    <label for="banner2" class="form-label"><b>Banner 2</b></label>
+                    <input type="file" class="form-control form-control-sm" id="banner2" name="img2">
+                </div>
+                <div class="mb-3">
+                    <label for="banner3" class="form-label"><b>Banner 3</b></label>
+                    <input type="file" class="form-control form-control-sm" id="banner3" name="img3">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-sm px-4 py-2">Update</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0Ho0Fq0+nAz5E4rOU2ZGb2Vr13+Ot2g/98kPp1NJkqE6Dke/" crossorigin="anonymous"></script>
+    <!-- Bootstrap 5.3.0 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // JavaScript to toggle the sidebar
         const sidebar = document.getElementById('sidebar');
@@ -71,6 +79,24 @@
         toggleButton.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
             content.classList.toggle('collapsed');
+        });
+
+        // JavaScript to manage brands list
+        const brandInput = document.getElementById('brandInput');
+        const addBrandButton = document.getElementById('addBrandButton');
+        const brandsList = document.getElementById('brandsList');
+
+        addBrandButton.addEventListener('click', () => {
+            const brandName = brandInput.value.trim();
+            if (brandName) {
+                const listItem = document.createElement('li');
+                listItem.textContent = brandName;
+                listItem.className = 'list-group-item';
+                brandsList.appendChild(listItem);
+                brandInput.value = ''; // Clear input field
+            } else {
+                alert('Please enter a brand name.');
+            }
         });
     </script>
 </body>

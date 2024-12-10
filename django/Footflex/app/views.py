@@ -69,12 +69,21 @@ def carousel(req):
             return render(req,'shop/carousels.html')
     else:
         return render(ff_login)
-
-def addpro(req):
-    if 'shop' in req.session: 
-        return render(req,'shop/addpro.html')
+    
+def brand(req):
+    if 'shop' in req.session:
+        return render(req,'shop/brand.html')
     else:
         return render(ff_login)
+def addpro(req):
+    if 'shop' in req.session: 
+        return render(req,'shop/addpro.html')                  #not completed
+    else:
+        return render(ff_login)
+    
+
+
+
 
 # --------------------user-------------------
 

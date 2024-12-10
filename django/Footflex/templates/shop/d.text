@@ -1,0 +1,12 @@
+<div class="container1">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            <li><h4>UPDATE BANNERS</h4></li>
+            <li><label for=""class="banners"><b>banner1</b></label> <input type="file" name="img1"></li>
+            <li><label for=""class="banners"><b>banner2</b></label> <input type="file" name="img2"></li>
+            <li><label for=""class="banners"><b>banner3</b></label> <input type="file" name="img3"></li>
+            <li><input type="submit" class="but"></li>
+        </ul>
+    </form>
+</div>

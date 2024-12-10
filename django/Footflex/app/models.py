@@ -11,8 +11,11 @@ class Product(models.Model):
     size=models.IntegerField()
     img=models.FileField()
     caregory=models.TextField()
+    brand=models.TextField()
 
 class Banner(models.Model):
     pic1=models.FileField()
     pic2=models.FileField()
     pic3=models.FileField()
+
+
