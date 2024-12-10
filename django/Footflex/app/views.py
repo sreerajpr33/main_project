@@ -109,3 +109,9 @@ def register(req):
     else:
         return render(req,'user/register.html')
     
+def aboutus(req):
+    return render(req,'user/aboutus.html')
+
+def contactus(req):
+    return render(req,'user/contactus.html')
+    

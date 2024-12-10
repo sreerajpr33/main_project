@@ -11,6 +11,7 @@
       @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
         body {
             background-color: black;
+            font-family: "Exo 2", sans-serif;
             margin: 0;
         }
 
@@ -70,9 +71,9 @@
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
-        {% comment %} .carousel-inner {
+        /* .carousel-inner {
           height: 500px;
-        }  {% endcomment %}
+        }  */
 
 .carousel-inner img {
     object-fit: cover; /* Ensures the image covers the area */
@@ -111,10 +112,10 @@
                         <a class="nav-link ms-4" href="javascript:void(0)"><b>KIDS</b></a>
                     </li>
                     <li class="nav-item ms-4">
-                        <a class="nav-link" href="javascript:void(0)"><b>ABOUT US</b></a>
+                        <a class="nav-link" href="aboutus"><b>ABOUT US</b></a>
                     </li>
                     <li class="nav-item ms-4">
-                        <a class="nav-link" href="javascript:void(0)"><b>CONTACT US</b></a>
+                        <a class="nav-link" href="contactus"><b>CONTACT US</b></a>
                     </li>
                     <li class="nav-item ms-4">
                         <a class="nav-link" href="logout"><b>LOGOUT</b></a>
@@ -168,6 +169,58 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
+    <!-- footer -->
+    <footer style="background-color: #222; color: #fff; padding: 40px 20px;">
+        <div style="max-width: 1200px; margin: auto;">
+    
+            <!-- Row 1: Links -->
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #444; padding-bottom: 20px; text-align: center;">
+                <div style="flex: 1; margin: 10px;">
+                    <h4>Shop</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Men</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Women</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Kids</a></li>
+                    </ul>
+                </div>
+                <div style="flex: 1; margin: 10px;">
+                    <h4>Company</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Careers</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Investors</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div style="flex: 1; margin: 10px;">
+                    <h4>Support</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Customer Service</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Shipping</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">Returns</a></li>
+                        <li><a href="#" style="color: #fff; text-decoration: none;">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <!-- Row 2: Newsletter and Social Media -->
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; padding: 20px 0; border-bottom: 1px solid #444;">
+                <div style="flex: 1; margin: 10px; text-align: center;">
+                    <h4>Follow Us</h4>
+                    <a href="#" style="color: #fff; text-decoration: none; margin: 0 10px;"><img src="{%static 'img/icons8-facebook.svg'%}" alt=""></a>
+                    <a href="#" style="color: #fff; text-decoration: none; margin: 0 10px;"><img src="{%static 'img/icons8-instagram.svg'%}" alt=""></a>
+                    <a href="#" style="color: #fff; text-decoration: none; margin: 0 10px;"><img src="{%static 'img/icons8-pinterest-logo.svg'%}" alt=""></a>
+                    <a href="#" style="color: #fff; text-decoration: none; margin: 0 10px;"><img src="{%static 'img/icons8-twitter-logo.svg'%}" alt=""></a>
+                </div>
+            </div>
+    
+            <!-- Row 3: Payment Methods and Copyright -->
+            <div style="text-align: center; padding: 20px 0;">
+                <p>Payment Methods: Visa | MasterCard | PayPal | Apple Pay | Google Pay</p>
+                <p>© 2024 Footflex. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.querySelector('.search-icon').addEventListener('click', function () {
