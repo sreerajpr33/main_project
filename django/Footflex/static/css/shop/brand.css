@@ -13,7 +13,7 @@ body {
     left: 0;
     background-color: #343a40;
     color: white;
-    padding-top: 5px;
+    padding-top: 0px;
     z-index: 100;
     transition: transform 0.3s ease-in-out;
 }

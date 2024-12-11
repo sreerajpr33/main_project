@@ -8,6 +8,7 @@ urlpatterns=[
     path('carousel',views.carousel),
     path('addpro',views.addpro),
     path('addbrand',views.brand),
+    path('addcategory',views.addcat),
     # user,
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),

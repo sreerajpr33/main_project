@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from . models import*
 from django.contrib import messages
 from django.contrib.auth.models import User
+import os
 
 # Create your views here.
 def shop_home(req):
@@ -58,12 +59,22 @@ def carousel(req):
             else :
                 data1=Banner.objects.get(pk=id[0])
                 if image1:
+                    file=data1.pic1.url
+                    os.remove('media/'+file)
+                    data.delete()
                     data1.pic1=image1
                 if image2:
+                    file=data1.pic1.url
+                    os.remove('media/'+file)
+                    data.delete()
                     data1.pic2=image2
                 if image3:
+                    file=data1.pic1.url
+                    os.remove('media/'+file)
+                    data.delete()
                     data1.pic3=image3
                 data1.save()
+           
             return redirect(shop_home)
         else:
             return render(req,'shop/carousels.html')
@@ -72,12 +83,59 @@ def carousel(req):
     
 def brand(req):
     if 'shop' in req.session:
-        return render(req,'shop/brand.html')
+        if req.method=='POST':
+            b_name=req.POST['brandname']
+            b_name=b_name.lower()
+            try:
+                brd=Brand.objects.get(name=b_name)
+            except:
+                data=Brand.objects.create(name=b_name)
+                data.save()
+            return redirect(brand)
+        brands=Brand.objects.all()
+        return render(req,'shop/brand.html',{'brands':brands})
     else:
         return render(ff_login)
+    
+def addcat(req):
+    if 'shop' in req.session:
+        if req.method=='POST':
+            cat_name=req.POST['catname']
+            cat_name=cat_name.lower()
+            try:
+                cr=Category.objects.get(c_name=cat_name)
+            except:
+                data=Category.objects.create(c_name=cat_name)
+                data.save()
+            return redirect(addcat)
+        category=Category.objects.all()
+        return render(req,'shop/category.html',{'category':category})
+    else:
+        return render(ff_login)
+
+
+
 def addpro(req):
     if 'shop' in req.session: 
-        return render(req,'shop/addpro.html')                  #not completed
+        if req.method=='POST':
+            pid=req.POST['pid']
+            name=req.POST['name']
+            dis=req.POST['dis']
+            price=req.POST['price']
+            offer_price=req.POST['offer_price']
+            color=req.POST['color']
+            image=req.FILES['img']
+            brands=req.POST['brand']
+            category=req.POST['category']
+            cat=Category.objects.get(pk=category)
+            brd=Brand.objects.get(pk=brands)
+            data=Product.objects.create(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,color=color,img=image,category=cat,brand=brd)
+            data.save()
+            return redirect(addpro)
+        else:
+            brands=Brand.objects.all()
+            category=Category.objects.all()
+            return render(req,'shop/addpro.html',{'brands':brands,'category':category})                                                                                             #not completed
     else:
         return render(ff_login)
     

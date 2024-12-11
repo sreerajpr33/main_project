@@ -22,7 +22,7 @@
             <nav>
                 <a href="carousel" class="sidebar-link"><b>Update Banners</b></a>
                 <a href="addbrand" class="sidebar-link"><b>Add Brand</b></a>
-                <a href="addcategory" class="sidebar-link"><b>Add Category</b></a>
+                <a href="#" class="sidebar-link"><b>Add Category</b></a>
                 <a href="addpro" class="sidebar-link"><b>Add Product</b></a>
                 <a href="#" class="sidebar-link"><b>Add Size</b></a>
                 <a href="#" class="sidebar-link"><b>Update Product</b></a>
@@ -37,7 +37,7 @@
         <!-- Main Content -->
         <div class="content">
             <nav class="navbar navbar-expand-lg navbar-dark">
-                <span class="navbar-brand">Add Brand</span>
+                <span class="navbar-brand">Add Category</span>
                 <button class="navbar-toggler" type="button" id="toggleSidebar">
                     <span>☰ Toggle Sidebar</span>
                 </button>
@@ -46,18 +46,18 @@
             <div class="container mt-4">
                 <form action="" method="POST">
                     {%csrf_token%}
-                <h1 class="mb-4">Add Brand</h1>
+                <h1 class="mb-4">Add Category</h1>
                 <div class="mb-3">
-                    <label for="brandInput" class="form-label">Add a New Brand</label>
-                    <input type="text" class="form-control" id="brandInput" placeholder="Enter brand name"name="brandname">
+                    <label for="brandInput" class="form-label">Add a New Category</label>
+                    <input type="text" class="form-control" id="brandInput" placeholder="Enter New Category"name="catname">
                     <input type="submit" class="btn btn-outline-info mt-3">
                 </div>
             </form>
                 <hr>
-                <h3>Brands List:</h3>
+                <h3>Category List:</h3>
                 <ul id="brandsList" class="list-group">
-                    {% for i in brands %}
-                    <div class="container  w-100 bg-light text-dark mb-2">{{i.name}}</div>
+                    {% for i in category %}
+                    <div class="container  w-100 bg-light text-dark mb-2">{{i.c_name}}</div>
                     {% endfor %}
                 </ul>
             

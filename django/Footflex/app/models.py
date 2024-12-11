@@ -1,5 +1,12 @@
 from django.db import models
 
+class Brand(models.Model):
+    name=models.TextField()
+
+class Category(models.Model):
+    c_name=models.TextField()
+
+
 # Create your models here.
 class Product(models.Model):
     pid=models.TextField()
@@ -7,11 +14,10 @@ class Product(models.Model):
     dis=models.TextField()
     price=models.IntegerField()
     offer_price=models.IntegerField()
-    stock=models.IntegerField()
-    size=models.IntegerField()
     img=models.FileField()
-    caregory=models.TextField()
-    brand=models.TextField()
+    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
+    color=models.TextField()
 
 class Banner(models.Model):
     pic1=models.FileField()
