@@ -138,6 +138,12 @@ def addpro(req):
             return render(req,'shop/addpro.html',{'brands':brands,'category':category})                                                                                             #not completed
     else:
         return render(ff_login)
+
+def size(req):
+    if 'shop' in req.session:
+        return render(req,'shop/size.html')
+    else:
+        return render(ff_login)
     
 
 
