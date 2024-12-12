@@ -158,12 +158,68 @@ def sizes(req):
     else:
         return render(ff_login)
     
-
-def update(req):
+def viewprd(req):
     if 'shop' in req.session:
-        return render(req,'shop/update.html')
+        pro=Product.objects.all()
+        # brd=Brand.objects.get()
+        return render(req,'shop/viewproduct.html',{'products':pro})
     else:
         return render(ff_login)
+    
+
+def updateproduct(req, pid):
+    if req.method == 'POST':
+        pid = req.POST['pid']
+        name = req.POST['name']
+        dis = req.POST['dis']
+        price = req.POST['price']
+        offer_price = req.POST['offer_price']
+        color = req.POST['color']
+        image = req.FILES.get('img')
+        brands = req.POST['brand']
+        category = req.POST['category']
+
+        cat = Category.objects.get(pk=category)
+        brd = Brand.objects.get(pk=brands)
+
+        if image:
+            Product.objects.filter(pk=pid).update(
+                pid=pid, name=name, dis=dis, price=price, 
+                offer_price=offer_price, color=color, img=image, 
+                category=cat, brand=brd
+            )
+            data = Product.objects.get(pk=pid)
+            data.img = image
+            data.save()
+        else:
+            Product.objects.filter(pk=pid).update(
+                pid=pid, name=name, dis=dis, price=price, 
+                offer_price=offer_price, color=color, 
+                category=cat, brand=brd
+            )
+
+        return redirect('viewprd')
+
+    else:
+        try:
+            data = Product.objects.get(pk=pid)
+            brands = Brand.objects.all()
+            categories = Category.objects.all()
+            return render(req, 'shop/update.html', {'data': data, 'brands': brands, 'categories': categories})
+        except:
+            return redirect(viewprd)
+
+def updatesize(req,pid):
+    if req.method=='POST':
+            products=req.POST['p_name']
+            size=req.POST['size']
+            stock=req.POST['stock']
+            prd=Product.objects.get(pk=products)
+            Size.objects.filter(pk=pid).update(product=prd,size=size,stock=stock)
+    else:
+        Product.objects.filter(pk=pid).update(product=prd,size=size,stock=stock)
+        data=Size.objects.all()
+    return render(req,'shop/update.html',{'datas':data})
 
 
 # --------------------user-------------------

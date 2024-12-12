@@ -48,8 +48,7 @@
                 <a href="addcategory" class="sidebar-link"><b>Add Category</b></a>
                 <a href="addpro" class="sidebar-link"><b>Add Product</b></a>
                 <a href="sizes" class="sidebar-link"><b>Add Size</b></a>
-                <a href="updates" class="sidebar-link"><b>Update Product</b></a>
-                <a href="#" class="sidebar-link"><b>View Product</b></a>
+                <a href="viewproduct" class="sidebar-link"><b>View Product</b></a>
                 <a href="#" class="sidebar-link"><b>Delete Product</b></a>
                 <a href="#" class="sidebar-link"><b>View Booking</b></a>
                 <a href="#" class="sidebar-link"><b>Customer Details</b></a>
@@ -73,28 +72,28 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="pid" class="form-label">Product ID</label>
-                            <input type="text" class="form-control" id="pid" name="pid" required>
+                            <input type="text" class="form-control" id="pid" name="pid"value="{{data.pid}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" value="{{data.name}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
+                            <input type="number" class="form-control" id="price" name="price" value="{{data.price}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="offerprice" class="form-label">Offer Price</label>
-                            <input type="number" class="form-control" id="offerprice" name="offer_price">
+                            <input type="number" class="form-control" id="offerprice" name="offer_price" value="{{data.offer_price}}">
                         </div>
                         <div class="mb-3">
                             <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color">
+                            <input type="text" class="form-control" id="color" name="color" value="{{data.color}}">
                         </div>
                         <div class="mb-3">
                             <label for="brand" class="form-label">Brand</label>
                             <select class="form-control" id="brand" name="brand">
-                                <option value="">Select Brand</option>
+                                <option value="">{{data.brand.name}}</option>
                                 {% for i in brands %}
                                     <option value="{{ i.pk }}">{{ i.name }}</option>
                                 {% endfor %}
@@ -103,7 +102,7 @@
                         <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
                             <select class="form-control" id="category" name="category">
-                                <option value="">Select Category</option>
+                                <option value="">{{data.category.c_name}}</option>
                                 {% for i in category %}
                                     <option value="{{ i.pk }}">{{ i.c_name }}</option>
                                 {% endfor %}
@@ -111,12 +110,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="dis" rows="3"></textarea>
+                            <textarea class="form-control" id="description" name="dis" rows="3" >{{data.dis}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="img" class="form-label">Image</label>
                             <input type="file" class="form-control" id="img" name="img" accept="image/*">
                         </div>
+                        <div class="container mt-5 mb-5"><img src="{{data.img.url}}" alt="" style="width:20vw;height: 40vh;"></div>
                         <button type="submit" class="btn btn-primary w-100">Add Product</button>
                     </form>
                 </div>
@@ -126,6 +126,8 @@
                     <h2 class="form-header">Add Size</h2>
                     <form action="" method="POST">
                         {% csrf_token %}
+                    
+                        
                         <div class="mb-3">
                             <label for="p_name" class="form-label">Product</label>
                             <select class="form-control" id="p_name" name="p_name">
@@ -137,7 +139,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="size" class="form-label">Add Size</label>
-                            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size">
+                            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size" value="{{datas.size}}">
                         </div>
                         <div class="mb-3">
                             <label for="stock" class="form-label">Available Stocks</label>

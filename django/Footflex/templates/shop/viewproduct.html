@@ -7,8 +7,103 @@
     <title>Admin Dashboard</title>
     <!-- Bootstrap 5.3.0 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/shop/banner.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shophome.css' %}">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+    background-color: black;
+}
+
+/* Sidebar */
+#sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    color: white;
+    padding-top: 0px;
+    z-index: 100;
+    transition: transform 0.3s ease-in-out;
+}
+
+#sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+.sidebar-link {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #495057;
+}
+
+.logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Adjust for collapsed sidebar */
+.content.collapsed {
+    margin-left: 0;
+}
+
+.navbar {
+    background-color: #6c757d;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-toggler {
+    background-color: #198754;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.navbar-toggler:hover {
+    background-color: #145c37;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-100%);
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    #sidebar.collapsed {
+        transform: translateX(0);
+    }
+}
         
     </style>
 </head>
@@ -25,7 +120,7 @@
                 <a href="addcategory" class="sidebar-link"><b>Add Category</b></a>
                 <a href="addpro" class="sidebar-link"><b>Add Product</b></a>
                 <a href="sizes" class="sidebar-link"><b>Add Size</b></a>
-                <a href="viewproduct" class="sidebar-link"><b>View Product</b></a>
+                <a href="#" class="sidebar-link"><b>View Product</b></a>
                 <a href="#" class="sidebar-link"><b>Delete Product</b></a>
                 <a href="#" class="sidebar-link"><b>View Booking</b></a>
                 <a href="#" class="sidebar-link"><b>Customer Details</b></a>
@@ -36,7 +131,7 @@
         <!-- Main Content -->
         <div class="content">
             <nav class="navbar navbar-expand-lg navbar-dark">
-                <span class="navbar-brand">Update Banner</span>
+                <span class="navbar-brand">View Products</span>
                 <button class="navbar-toggler" type="button" id="toggleSidebar">
                     <span>☰ Toggle Sidebar</span>
                 </button>
@@ -44,27 +139,31 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
-        <div class="card shadow-sm p-4" style="width: 400px;">
-            <h4 class="text-center mb-4">Update Banners</h4>
-            <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="banner1" class="form-label"><b>Banner 1</b></label>
-                    <input type="file" class="form-control form-control-sm" id="banner1" name="img1">
+    <!-- body -->
+    <div class="content">
+        <!-- Product Card -->
+        <div class="container mt-4">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mt-2">
+                        <img src="{{ product.img.url }}" class="card-img-top" alt="{{ product.name }} "style="height:40vh;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">
+                                <strong>Color:</strong> {{ product.color }}<br>
+                                <strong>Brand:</strong> {{ product.brand.name }}<br>
+                                <strong>Category:</strong> {{ product.category.c_name }}<br>
+                                <strong>Price:</strong> Rs{{ product.price }}<br>
+                                <strong>Offer Price:</strong> Rs{{ product.offer_price }}
+                            </p>
+                            <a href="updates/{{product.pk}}" class="btn btn-primary">Edit</a>
+                            <a href="#" class="btn btn-primary">delete</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="banner2" class="form-label"><b>Banner 2</b></label>
-                    <input type="file" class="form-control form-control-sm" id="banner2" name="img2">
-                </div>
-                <div class="mb-3">
-                    <label for="banner3" class="form-label"><b>Banner 3</b></label>
-                    <input type="file" class="form-control form-control-sm" id="banner3" name="img3">
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success btn-sm px-4 py-2">Update</button>
-                </div>
-            </form>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
