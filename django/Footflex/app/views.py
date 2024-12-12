@@ -60,21 +60,24 @@ def carousel(req):
                 data1=Banner.objects.get(pk=id[0])
                 if image1:
                     file=data1.pic1.url
+                    file=file.split('/')[-1]
                     os.remove('media/'+file)
                     data.delete()
                     data1.pic1=image1
                 if image2:
-                    file=data1.pic1.url
+                    file=data1.pic2.url
+                    file=file.split('/')[-1]
                     os.remove('media/'+file)
                     data.delete()
                     data1.pic2=image2
                 if image3:
-                    file=data1.pic1.url
+                    file=data1.pic3.url
+                    file=file.split('/')[-1]
                     os.remove('media/'+file)
                     data.delete()
                     data1.pic3=image3
                 data1.save()
-           
+
             return redirect(shop_home)
         else:
             return render(req,'shop/carousels.html')
@@ -131,7 +134,7 @@ def addpro(req):
             brd=Brand.objects.get(pk=brands)
             data=Product.objects.create(pid=pid,name=name,dis=dis,price=price,offer_price=offer_price,color=color,img=image,category=cat,brand=brd)
             data.save()
-            return redirect(addpro)
+            return redirect(sizes)
         else:
             brands=Brand.objects.all()
             category=Category.objects.all()
@@ -139,14 +142,28 @@ def addpro(req):
     else:
         return render(ff_login)
 
-def size(req):
+def sizes(req):
     if 'shop' in req.session:
-        return render(req,'shop/size.html')
+        if req.method=='POST':
+            products=req.POST['p_name']
+            size=req.POST['size']
+            stock=req.POST['stock']
+            prd=Product.objects.get(pk=products)
+            data=Size.objects.create(product=prd,size=size,stock=stock)
+            data.save()
+            return redirect(sizes)
+        else:
+            productss=Product.objects.all()
+        return render(req,'shop/size.html',{'products':productss})
     else:
         return render(ff_login)
     
 
-
+def update(req):
+    if 'shop' in req.session:
+        return render(req,'shop/update.html')
+    else:
+        return render(ff_login)
 
 
 # --------------------user-------------------

@@ -9,9 +9,11 @@ urlpatterns=[
     path('addpro',views.addpro),
     path('addbrand',views.brand),
     path('addcategory',views.addcat),
+    path('sizes',views.sizes),
+    path('updates',views.update),
     # user,
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),
     path('contactus',views.contactus),
-    path('sizes',views.size),
+    
 ]

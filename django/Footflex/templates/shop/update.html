@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap 5.3.0 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/shop/addpro.css' %}">
+    <style>
+        /* Optional: Custom styling for form layout */
+        .form-container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container1 {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="logo">
+                <a href="shop_home"><img src="{% static 'img/FLEX.png' %}" alt="Logo" class="img-fluid" style="max-width: 100px;"></a>
+            </div>
+            <nav>
+                <a href="carousel" class="sidebar-link"><b>Update Banners</b></a>
+                <a href="addbrand" class="sidebar-link"><b>Add Brand</b></a>
+                <a href="addcategory" class="sidebar-link"><b>Add Category</b></a>
+                <a href="addpro" class="sidebar-link"><b>Add Product</b></a>
+                <a href="sizes" class="sidebar-link"><b>Add Size</b></a>
+                <a href="updates" class="sidebar-link"><b>Update Product</b></a>
+                <a href="#" class="sidebar-link"><b>View Product</b></a>
+                <a href="#" class="sidebar-link"><b>Delete Product</b></a>
+                <a href="#" class="sidebar-link"><b>View Booking</b></a>
+                <a href="#" class="sidebar-link"><b>Customer Details</b></a>
+                <a href="logout" class="sidebar-link"><b>Logout</b></a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <span class="navbar-brand">UPDATE PRODUCTS</span>
+                <button class="navbar-toggler" type="button" id="toggleSidebar">
+                    <span>☰ Toggle Sidebar</span>
+                </button>
+            </nav>
+            <div class="container1">
+                <!-- Product Form (Left Half) -->
+                <div class="form-container col-md-6">
+                    <h2 class="form-header">Add Product</h2>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="pid" class="form-label">Product ID</label>
+                            <input type="text" class="form-control" id="pid" name="pid" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="offerprice" class="form-label">Offer Price</label>
+                            <input type="number" class="form-control" id="offerprice" name="offer_price">
+                        </div>
+                        <div class="mb-3">
+                            <label for="color" class="form-label">Color</label>
+                            <input type="text" class="form-control" id="color" name="color">
+                        </div>
+                        <div class="mb-3">
+                            <label for="brand" class="form-label">Brand</label>
+                            <select class="form-control" id="brand" name="brand">
+                                <option value="">Select Brand</option>
+                                {% for i in brands %}
+                                    <option value="{{ i.pk }}">{{ i.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-control" id="category" name="category">
+                                <option value="">Select Category</option>
+                                {% for i in category %}
+                                    <option value="{{ i.pk }}">{{ i.c_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="dis" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="img" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="img" name="img" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Product</button>
+                    </form>
+                </div>
+
+                <!-- Size Form (Right Half) -->
+                <div class="form-container col-md-6">
+                    <h2 class="form-header">Add Size</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="p_name" class="form-label">Product</label>
+                            <select class="form-control" id="p_name" name="p_name">
+                                <option value="">Select Product</option>
+                                {% for i in products %}
+                                    <option value="{{ i.pk }}">{{ i.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="size" class="form-label">Add Size</label>
+                            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size">
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Available Stocks</label>
+                            <input type="number" class="form-control" id="stock" placeholder="Enter stock" name="stock">
+                        </div>
+                        <button type="submit" class="btn btn-outline-info w-100">Add Size</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3.0 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript to toggle the sidebar
+        const sidebar = document.getElementById('sidebar');
+        const content = document.querySelector('.content');
+        const toggleButton = document.getElementById('toggleSidebar');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        });
+    </script>
+</body>
+</html>
