@@ -12,7 +12,7 @@ urlpatterns=[
     path('sizes',views.sizes),
     path('viewproduct',views.viewprd),
     path('updates/<pid>',views.updateproduct),
-    path('updates/<pid>',views.updatesize),
+    path('updatesize/<pid>',views.updatesize),
     # user,
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),

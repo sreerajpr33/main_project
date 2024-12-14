@@ -67,7 +67,7 @@
             <div class="container1">
                 <!-- Product Form (Left Half) -->
                 <div class="form-container col-md-6">
-                    <h2 class="form-header">Add Product</h2>
+                    <h2 class="form-header">Edit Product</h2>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3">
@@ -123,34 +123,30 @@
 
                 <!-- Size Form (Right Half) -->
                 <div class="form-container col-md-6">
-                    <h2 class="form-header">Add Size</h2>
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                    
-                        
-                        <div class="mb-3">
-                            <label for="p_name" class="form-label">Product</label>
-                            <select class="form-control" id="p_name" name="p_name">
-                                <option value="">Select Product</option>
-                                {% for i in products %}
-                                    <option value="{{ i.pk }}">{{ i.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="size" class="form-label">Add Size</label>
-                            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size" value="{{datas.size}}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="stock" class="form-label">Available Stocks</label>
-                            <input type="number" class="form-control" id="stock" placeholder="Enter stock" name="stock">
-                        </div>
-                        <button type="submit" class="btn btn-outline-info w-100">Add Size</button>
-                    </form>
-                </div>
-            </div>
+    <h2 class="form-header">Edit Size</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <!-- Display the product name -->
+            <div class="container">{{ product.name }}</div>
         </div>
-    </div>
+        
+        <div class="mb-3">
+            <label for="size" class="form-label">Add Size</label>
+            <!-- Make sure to set the value attribute correctly -->
+            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size" value="{{ size_instance.size }}">
+        </div>
+        
+        <div class="mb-3">
+            <label for="stock" class="form-label">Available Stocks</label>
+            <!-- Set the value of the stock input to the current stock value -->
+            <input type="number" class="form-control" id="stock" placeholder="Enter stock" name="stock" value="{{ size_instance.stock }}">
+        </div>
+        
+        <button type="submit" class="btn btn-outline-info w-100">Add Size</button>
+    </form>
+</div>
 
     <!-- Bootstrap 5.3.0 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

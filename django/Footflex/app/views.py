@@ -167,7 +167,7 @@ def viewprd(req):
         return render(ff_login)
     
 
-def updateproduct(req, pid):
+def updateproduct(req,pid):
     if req.method == 'POST':
         pid = req.POST['pid']
         name = req.POST['name']
@@ -198,7 +198,7 @@ def updateproduct(req, pid):
                 category=cat, brand=brd
             )
 
-        return redirect('viewprd')
+        return redirect(viewprd)
 
     else:
         try:
@@ -210,27 +210,30 @@ def updateproduct(req, pid):
             return redirect(viewprd)
 
 def updatesize(req,pid):
-    if req.method=='POST':
+        if req.method=='POST':
             products=req.POST['p_name']
             size=req.POST['size']
             stock=req.POST['stock']
             prd=Product.objects.get(pk=products)
             Size.objects.filter(pk=pid).update(product=prd,size=size,stock=stock)
-    else:
-        Product.objects.filter(pk=pid).update(product=prd,size=size,stock=stock)
-        data=Size.objects.all()
-    return render(req,'shop/update.html',{'datas':data})
+            return redirect(sizes)
+        else:
+            productss=Product.objects.get(pk=pid)
+        return render(req,'shop/size.html',{'products':productss})
 
 
 # --------------------user-------------------
 
 def user_home(req):
     if 'user'in req.session:
-        banner=Banner.objects.all()[::-1][:1]
-        print(banner)
-        return render(req,'user/user_home.html',{'banners':banner})
+        banner=Banner.objects.all()[:1]
+        products=Product.objects.all()[::-1][:5]
+        return render(req,'user/user_home.html',{'banners':banner,'products':products})
     else:
         return redirect(ff_login)
+    
+
+    
 def register(req):
     if req.method=='POST':
         uname=req.POST['uname']
