@@ -6,6 +6,7 @@ urlpatterns=[
     path('logout',views.ff_logout),    
     path('register',views.register), 
     path('carousel',views.carousel),
+    path('banner',views.banner2),
     path('addpro',views.addpro),
     path('addbrand',views.brand),
     path('addcategory',views.addcat),

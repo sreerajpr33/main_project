@@ -83,6 +83,44 @@ def carousel(req):
             return render(req,'shop/carousels.html')
     else:
         return render(ff_login)
+def banner2(req):
+    if 'shop' in req.session:
+        if req.method == 'POST':
+            image1 = req.FILES.get('img1')
+            image2 = req.FILES.get('img2')
+            name = req.POST.get('name')  
+            discrp = req.POST.get('dis')
+            data = Banner2.objects.all()
+            id = [i.pk for i in data]
+            
+            if not data:
+                data = Banner2.objects.create(pic1=image1, pic2=image2, b_name=name, b_dis=discrp)
+                data.save()
+            else:
+                data1 = Banner2.objects.get(pk=id[0])
+                
+                if image1:
+                    file = data1.pic1.url
+                    file = file.split('/')[-1]
+                    os.remove('media/' + file)
+                    data1.pic1 = image1
+
+                if image2:
+                    file = data1.pic2.url
+                    file = file.split('/')[-1]
+                    os.remove('media/' + file)
+                    data1.pic2 = image2  
+
+                data1.b_name = name  
+                data1.b_dis = discrp 
+
+                data1.save() 
+
+            return redirect(banner2)
+        else:
+            return render(req, 'shop/banner2.html')
+
+
     
 def brand(req):
     if 'shop' in req.session:
@@ -228,7 +266,8 @@ def user_home(req):
     if 'user'in req.session:
         banner=Banner.objects.all()[:1]
         products=Product.objects.all()[::-1][:5]
-        return render(req,'user/user_home.html',{'banners':banner,'products':products})
+        banner2=Banner2.objects.all()
+        return render(req,'user/user_home.html',{'banners':banner,'products':products,'pbanner':banner2})
     else:
         return redirect(ff_login)
     

@@ -4,3 +4,4 @@ from . models import*
 admin.site.register(Product)
 admin.site.register(Banner)
 admin.site.register(Brand)
+admin.site.register(Banner2)

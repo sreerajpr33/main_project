@@ -24,6 +24,12 @@ class Banner(models.Model):
     pic2=models.FileField()
     pic3=models.FileField()
 
+class Banner2(models.Model):
+    pic1=models.FileField()
+    pic2=models.FileField()
+    b_name=models.TextField()
+    b_dis=models.TextField()
+
 class Size(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     size=models.IntegerField()
