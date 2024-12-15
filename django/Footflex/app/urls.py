@@ -21,5 +21,6 @@ urlpatterns=[
     path('mens',views.mens),
     path('women',views.womens),
     path('kids',views.kids),
+    path('buy',views.buy),
     
 ]

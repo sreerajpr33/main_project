@@ -86,7 +86,7 @@
     <div class=" container recent-products">
         {% for product in products %}
             <div class="product-item">
-                <img src="{{ product.img.url }}" alt="" class="img-fluid" style="height:35vh;">
+                <a href="buy"><img src="{{ product.img.url }}" alt="" class="img-fluid" style="height:35vh;"></a>
                 <div class="text-center">{{product.name}}</div>
             </div>
         {% endfor %}
@@ -103,7 +103,7 @@
                 <li><h2>{{banner.b_name}}</h2></li>
                 <li>{{banner.b_dis}}</li>
                 <li><button type="submit" class="lmtbut">
-                    <b>VIEW</b>
+                    <b>VIEW PRODUCTS</b>
                 </button></li>
             </ul>
             {% endfor %}

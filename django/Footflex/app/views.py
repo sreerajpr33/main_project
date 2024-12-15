@@ -311,6 +311,9 @@ def kids(req):
         return render(req,'user/kids.html',{'kids':kidz})
     else:
         return redirect(ff_login)
+    
+def buy(req):
+    return render(req,'user/buy.html')
 
 
 def aboutus(req):

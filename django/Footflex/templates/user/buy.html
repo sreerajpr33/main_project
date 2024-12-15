@@ -35,6 +35,22 @@
       
       color: #f39c12;
     }
+
+    .custom-card {
+        width: 500px; /* Adjust width as needed */
+        height: 350px; /* Adjust height as needed */
+      }
+      
+      /* Custom Image Size */
+      .custom-card-img {
+        object-fit: cover; /* Ensure image covers the area without distortion */
+        height: 100%; /* Image takes full height of its container */
+      }
+  
+      /* Optional: Increase button width */
+      .btn-custom {
+        width: 100%;
+      }
     
     </style>
 </head>
@@ -77,27 +93,39 @@
     </div>
 
     <!-- body -->
-    <div class="container text-info" style="text-align: center;"><h1><u><b>W O M E N S</b></u></h1></div>
-
-    <!-- cards -->
     <div class="container mt-5">
-        <div class="row d-flex flex-wrap">
-            {% for women in womens %}
-            <div class="col-md-4 mb-4">
-                <div class="product-card">
-                    <a href="buy"><img src="{{women.img.url}}" alt="Product Image" class="product-image"></a>
-                    <div class="p-3">
-                        <h5 class="product-name" style="color:gold;">{{women.name}}</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="product-price" style="color:red">Rs {{women.price}}</div>
-                            <div class="offer-price">offer price Rs {{women.offer_price}}</div>
-                        </div>
-                    </div>
+        <div class="row justify-content-center">
+          <!-- Product Card -->
+          <div class="col-md-6 d-flex justify-content-center">
+            <div class="card shadow-sm custom-card">
+              <div class="row g-0">
+                <!-- Product Image (Left Side) -->
+                <div class="col-md-6">
+                  <img src="https://via.placeholder.com/350x200" class="img-fluid rounded-start custom-card-img" alt="Product Image">
                 </div>
+                <!-- Product Details (Right Side) -->
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <!-- Product Name -->
+                    <h5 class="card-title">Product Name</h5>
+                    
+                    <!-- Product Description -->
+                    <p class="card-text">
+                      This is a short description of the product. It highlights the key features and benefits of the product.
+                    </p>
+                    
+                    <!-- Product Price -->
+                    <p class="card-text fs-4 text-primary">$99.99</p>
+                    
+                    <!-- Buy Now Button -->
+                    <a href="#" class="btn btn-primary btn-custom">Buy Now</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            {% endfor %}
+          </div>
         </div>
-    </div>
+      </div>
 
     <!-- Footer -->
     <footer class="mt-5">

@@ -85,7 +85,7 @@
             {% for men in mens %}
             <div class="col-md-4 mb-4">
                 <div class="product-card">
-                    <img src="{{men.img.url}}" alt="Product Image" class="product-image">
+                    <a href="buy"><img src="{{men.img.url}}" alt="Product Image" class="product-image"></a>
                     <div class="p-3">
                         <h5 class="product-name" style="color:gold;">{{men.name}}</h5>
                         <div class="d-flex justify-content-between align-items-center">
@@ -95,6 +95,7 @@
                     </div>
                 </div>
             </div>
+        
             {% endfor %}
         </div>
     </div>
