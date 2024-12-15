@@ -189,7 +189,7 @@ def sizes(req):
             prd=Product.objects.get(pk=products)
             data=Size.objects.create(product=prd,size=size,stock=stock)
             data.save()
-            return redirect(sizes)
+            return redirect(addpro)
         else:
             productss=Product.objects.all()
         return render(req,'shop/size.html',{'products':productss})
@@ -288,9 +288,35 @@ def register(req):
     else:
         return render(req,'user/register.html')
     
+def mens(req):
+    if 'user'in req.session:
+        data=Category.objects.get(c_name='mens')
+        menz=Product.objects.filter(category=data)
+        return render(req,'user/mens.html',{'mens':menz})
+    else:
+        return redirect(ff_login)
+    
+def womens(req):
+    if 'user'in req.session:
+        data=Category.objects.get(c_name='womens')
+        womenz=Product.objects.filter(category=data)
+        return render(req,'user/womens.html',{'womens':womenz})
+    else:
+        return redirect(ff_login)
+    
+def kids(req):
+    if 'user'in req.session:
+        data=Category.objects.get(c_name='kids')
+        kidz=Product.objects.filter(category=data)
+        return render(req,'user/kids.html',{'kids':kidz})
+    else:
+        return redirect(ff_login)
+
+
 def aboutus(req):
     return render(req,'user/aboutus.html')
 
 def contactus(req):
     return render(req,'user/contactus.html')
+
     

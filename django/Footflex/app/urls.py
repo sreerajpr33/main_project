@@ -18,5 +18,8 @@ urlpatterns=[
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),
     path('contactus',views.contactus),
+    path('mens',views.mens),
+    path('women',views.womens),
+    path('kids',views.kids),
     
 ]
