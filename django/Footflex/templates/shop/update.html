@@ -16,6 +16,13 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        .form-container2 {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            max-height:60vh;
+        }
 
         .form-header {
             text-align: center;
@@ -66,87 +73,95 @@
             </nav>
             <div class="container1">
                 <!-- Product Form (Left Half) -->
-                <div class="form-container col-md-6">
-                    <h2 class="form-header">Edit Product</h2>
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="pid" class="form-label">Product ID</label>
-                            <input type="text" class="form-control" id="pid" name="pid"value="{{data.pid}}" required>
+                <div class="container mt-5">
+                    <div class="row">
+                        <!-- Product Form (Left Half) -->
+                        <div class="col-md-6">
+                            <div class="form-container">
+                                <h2 class="form-header">Edit Product</h2>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="pid" class="form-label">Product ID</label>
+                                        <input type="text" class="form-control" id="pid" name="pid" value="{{data.pid}}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="{{data.name}}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="price" name="price" value="{{data.price}}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="offerprice" class="form-label">Offer Price</label>
+                                        <input type="number" class="form-control" id="offerprice" name="offer_price" value="{{data.offer_price}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="color" class="form-label">Color</label>
+                                        <input type="text" class="form-control" id="color" name="color" value="{{data.color}}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="brand" class="form-label">Brand</label>
+                                        <select class="form-control" id="brand" name="brand">
+                                            <option value="{{data.category.pk}}">{{data.brand.name}}</option>
+                                            {% for i in brands %}
+                                                <option value="{{ i.pk }}">{{ i.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Category</label>
+                                        <select class="form-control" id="category" name="category">
+                                            <option value="{{data.category.pk}}">{{data.category.c_name}}</option>
+                                            {% for i in category %}
+                                                <option value="{{ i.pk }}">{{ i.c_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" name="dis" rows="3">{{data.dis}}</textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="img" class="form-label">Image</label>
+                                        <input type="file" class="form-control" id="img" name="img" accept="image/*">
+                                    </div>
+                                    <div class="container mt-5 mb-5">
+                                        <img src="{{data.img.url}}" alt=""  class="img-fluid">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">SUBMIT</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{data.name}}" required>
+                
+                        <!-- Size Form (Right Half) -->
+                        <div class="col-md-6">
+                            {% for size in sizes %}
+                            <div class="form-container2 mt-4">
+                                <h2 class="form-header">Edit Size</h2>
+                                <form action="../updatesize/{{size.id}} " method="POST">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <div class="container">Product Name: <u>{{ size.product.name }}</u></div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="size" class="form-label">Add Size</label>
+                                        <input type="number" class="form-control" id="size" name="size" placeholder="Enter product size" value="{{ size.size }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="stock" class="form-label">Available Stocks</label>
+                                        <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter stock" value="{{ size.stock }}">
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-info w-100">SUBMIT</button>
+                                </form>
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" value="{{data.price}}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="offerprice" class="form-label">Offer Price</label>
-                            <input type="number" class="form-control" id="offerprice" name="offer_price" value="{{data.offer_price}}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" value="{{data.color}}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="brand" class="form-label">Brand</label>
-                            <select class="form-control" id="brand" name="brand">
-                                <option value="">{{data.brand.name}}</option>
-                                {% for i in brands %}
-                                    <option value="{{ i.pk }}">{{ i.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <select class="form-control" id="category" name="category">
-                                <option value="">{{data.category.c_name}}</option>
-                                {% for i in category %}
-                                    <option value="{{ i.pk }}">{{ i.c_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="dis" rows="3" >{{data.dis}}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="img" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="img" name="img" accept="image/*">
-                        </div>
-                        <div class="container mt-5 mb-5"><img src="{{data.img.url}}" alt="" style="width:20vw;height: 40vh;"></div>
-                        <button type="submit" class="btn btn-primary w-100">Add Product</button>
-                    </form>
+                    </div>
                 </div>
+                
 
-                <!-- Size Form (Right Half) -->
-                <div class="form-container col-md-6">
-    <h2 class="form-header">Edit Size</h2>
-    <form action="" method="POST">
-        {% csrf_token %}
-        
-        <div class="mb-3">
-            <!-- Display the product name -->
-            <div class="container">{{ product.name }}</div>
-        </div>
-        
-        <div class="mb-3">
-            <label for="size" class="form-label">Add Size</label>
-            <!-- Make sure to set the value attribute correctly -->
-            <input type="number" class="form-control" id="size" placeholder="Enter product size" name="size" value="{{ size_instance.size }}">
-        </div>
-        
-        <div class="mb-3">
-            <label for="stock" class="form-label">Available Stocks</label>
-            <!-- Set the value of the stock input to the current stock value -->
-            <input type="number" class="form-control" id="stock" placeholder="Enter stock" name="stock" value="{{ size_instance.stock }}">
-        </div>
-        
-        <button type="submit" class="btn btn-outline-info w-100">Add Size</button>
-    </form>
-</div>
 
     <!-- Bootstrap 5.3.0 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

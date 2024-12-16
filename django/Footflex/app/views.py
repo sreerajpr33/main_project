@@ -205,7 +205,7 @@ def viewprd(req):
         return render(ff_login)
     
 
-def updateproduct(req,pid):
+def updateproduct(req,cid):
     if req.method == 'POST':
         pid = req.POST['pid']
         name = req.POST['name']
@@ -221,16 +221,16 @@ def updateproduct(req,pid):
         brd = Brand.objects.get(pk=brands)
 
         if image:
-            Product.objects.filter(pk=pid).update(
+            Product.objects.filter(pk=cid).update(
                 pid=pid, name=name, dis=dis, price=price, 
                 offer_price=offer_price, color=color, img=image, 
                 category=cat, brand=brd
             )
-            data = Product.objects.get(pk=pid)
+            data = Product.objects.get(pk=cid)
             data.img = image
             data.save()
         else:
-            Product.objects.filter(pk=pid).update(
+            Product.objects.filter(pk=cid).update(
                 pid=pid, name=name, dis=dis, price=price, 
                 offer_price=offer_price, color=color, 
                 category=cat, brand=brd
@@ -240,23 +240,26 @@ def updateproduct(req,pid):
 
     else:
         try:
-            data = Product.objects.get(pk=pid)
+            data = Product.objects.get(pk=cid)
             brands = Brand.objects.all()
             categories = Category.objects.all()
-            return render(req, 'shop/update.html', {'data': data, 'brands': brands, 'categories': categories})
+            size=Size.objects.filter(product=data)
+            print (size)
+            return render(req, 'shop/update.html', {'data': data, 'brands': brands, 'categories': categories,'sizes':size})
         except:
             return redirect(viewprd)
 
-def updatesize(req,pid):
+def updatesize(req,sid):
         if req.method=='POST':
-            products=req.POST['p_name']
             size=req.POST['size']
             stock=req.POST['stock']
-            prd=Product.objects.get(pk=products)
-            Size.objects.filter(pk=pid).update(product=prd,size=size,stock=stock)
-            return redirect(sizes)
+            siz=Size.objects.get(pk=sid)
+            siz.size=size
+            siz.stock=stock
+            siz.save()
+            return redirect('updateproduct',cid=siz.product.pk)
         else:
-            productss=Product.objects.get(pk=pid)
+            productss=Product.objects.get(pk=sid)
         return render(req,'shop/size.html',{'products':productss})
 
 
@@ -270,8 +273,6 @@ def user_home(req):
         return render(req,'user/user_home.html',{'banners':banner,'products':products,'pbanner':banner2})
     else:
         return redirect(ff_login)
-    
-
     
 def register(req):
     if req.method=='POST':
@@ -312,8 +313,9 @@ def kids(req):
     else:
         return redirect(ff_login)
     
-def buy(req):
-    return render(req,'user/buy.html')
+def details(req,pid):
+    data=Product.objects.get(pk=pid)
+    return render(req,'user/details.html',{'products':data})
 
 
 def aboutus(req):

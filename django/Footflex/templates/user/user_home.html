@@ -86,7 +86,7 @@
     <div class=" container recent-products">
         {% for product in products %}
             <div class="product-item">
-                <a href="buy"><img src="{{ product.img.url }}" alt="" class="img-fluid" style="height:35vh;"></a>
+                <a href="buy/{{product.pk}}"><img src="{{ product.img.url }}" alt="" class="img-fluid" style="height:35vh;"></a>
                 <div class="text-center">{{product.name}}</div>
             </div>
         {% endfor %}

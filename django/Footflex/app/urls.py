@@ -12,8 +12,8 @@ urlpatterns=[
     path('addcategory',views.addcat),
     path('sizes',views.sizes),
     path('viewproduct',views.viewprd),
-    path('updates/<pid>',views.updateproduct),
-    path('updatesize/<pid>',views.updatesize),
+    path('updates/<cid>',views.updateproduct,name='updateproduct'),
+    path('updatesize/<sid>',views.updatesize),
     # user,
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),
@@ -21,6 +21,6 @@ urlpatterns=[
     path('mens',views.mens),
     path('women',views.womens),
     path('kids',views.kids),
-    path('buy',views.buy),
+    path('buy/<pid>',views.details),
     
 ]
