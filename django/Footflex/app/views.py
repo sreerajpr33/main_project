@@ -293,39 +293,34 @@ def mens(req):
     if 'user'in req.session:
         data=Category.objects.get(c_name='mens')
         menz=Product.objects.filter(category=data)
-        return render(req,'user/mens.html',{'mens':menz})
+        return render(req,'user/mens.html',{'products':menz})
     else:
         return redirect(ff_login)
-    
-def mendetails(req,pid):
-    data=Product.objects.get(pk=pid)
-    return render(req,'user/mensdetails.html',{'products':data})
     
 def womens(req):
     if 'user'in req.session:
         data=Category.objects.get(c_name='womens')
         womenz=Product.objects.filter(category=data)
-        return render(req,'user/womens.html',{'womens':womenz})
+        return render(req,'user/womens.html',{'products':womenz})
     else:
-        return redirect(ff_login)
-def womendetails(req,pid):
-    data=Product.objects.get(pk=pid)
-    return render(req,'user/womendetails.html',{'products':data})
-    
+        return redirect(ff_login)    
 def kids(req):
     if 'user'in req.session:
         data=Category.objects.get(c_name='kids')
         kidz=Product.objects.filter(category=data)
-        return render(req,'user/kids.html',{'kids':kidz})
+        return render(req,'user/kids.html',{'products':kidz})
     else:
-        return redirect(ff_login)
-def kiddetails(req,pid):
-    data=Product.objects.get(pk=pid)
-    return render(req,'user/kidsdetails.html',{'products':data})
-    
+        return redirect(ff_login)    
 def details(req,pid):
     data=Product.objects.get(pk=pid)
     return render(req,'user/details.html',{'products':data})
+
+def allproducts(req):
+    data=Product.objects.all()
+    return render(req,'user/allproducts.html',{'products':data})
+
+def cart(req):
+    return render(req,'cart.html')
 
 
 def aboutus(req):

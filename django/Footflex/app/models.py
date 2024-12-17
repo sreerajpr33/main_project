@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Brand(models.Model):
     name=models.TextField()
@@ -34,5 +35,10 @@ class Size(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     size=models.IntegerField()
     stock=models.IntegerField()
+
+class Cart(models.Model):
+    Product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    qty=models.IntegerField()
 
 

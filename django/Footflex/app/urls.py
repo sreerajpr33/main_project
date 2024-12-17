@@ -21,10 +21,9 @@ urlpatterns=[
     path('mens',views.mens),
     path('women',views.womens),
     path('kids',views.kids),
+    path('allproducts',views.allproducts),
     path('buy/<pid>',views.details),
-    path('mensdetails/<pid>',views.mendetails),
-    path('womendetails/<pid>',views.womendetails),
-    path('kidsdetails/<pid>',views.kiddetails),
+    path('cart',views.cart),
     
     
 ]
