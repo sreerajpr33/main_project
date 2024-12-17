@@ -137,7 +137,8 @@
     }
 
     .div3 {
-        background-color: cadetblue;
+        background-color: rgb(53, 53, 53);
+        color: gold;
         position: absolute;
         left: 70vw;
         top: 20vh;
@@ -156,7 +157,7 @@
     }
 
     .lmtheading {
-        color: gold;
+        color: rgb(255, 255, 255);
     }
 
     .lmtbut {
@@ -197,7 +198,7 @@
     }
 
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position: absolute;
         left: 78vw;
         top: 20vh;
@@ -238,7 +239,7 @@
     }
 
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position: absolute;
         left: 70vw;
         top: 20vh;
@@ -299,7 +300,7 @@
     }
 
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position: absolute;
         left: 72vw;
         top: 20vh;
@@ -498,7 +499,7 @@
         /* display: none; */
     }
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position:absolute;
         left: 0vw;
         top: 140vh;
@@ -555,7 +556,7 @@
         /* display: none; */
     }
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position:absolute;
         left: 0vw;
         top: 120vh;
@@ -613,7 +614,7 @@
         /* display: none; */
     }
     .div3 {
-        background-color: cadetblue;
+        /* background-color: cadetblue; */
         position:absolute;
         left: 0vw;
         top: 84vh;

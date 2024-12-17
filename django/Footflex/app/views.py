@@ -297,6 +297,10 @@ def mens(req):
     else:
         return redirect(ff_login)
     
+def mendetails(req,pid):
+    data=Product.objects.get(pk=pid)
+    return render(req,'user/mensdetails.html',{'products':data})
+    
 def womens(req):
     if 'user'in req.session:
         data=Category.objects.get(c_name='womens')
@@ -304,6 +308,9 @@ def womens(req):
         return render(req,'user/womens.html',{'womens':womenz})
     else:
         return redirect(ff_login)
+def womendetails(req,pid):
+    data=Product.objects.get(pk=pid)
+    return render(req,'user/womendetails.html',{'products':data})
     
 def kids(req):
     if 'user'in req.session:
@@ -312,6 +319,9 @@ def kids(req):
         return render(req,'user/kids.html',{'kids':kidz})
     else:
         return redirect(ff_login)
+def kiddetails(req,pid):
+    data=Product.objects.get(pk=pid)
+    return render(req,'user/kidsdetails.html',{'products':data})
     
 def details(req,pid):
     data=Product.objects.get(pk=pid)
