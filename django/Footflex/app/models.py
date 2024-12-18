@@ -37,8 +37,9 @@ class Size(models.Model):
     stock=models.IntegerField()
 
 class Cart(models.Model):
-    Product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    size=models.ForeignKey(Size,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     qty=models.IntegerField()
+    total_price=models.IntegerField()
 
 

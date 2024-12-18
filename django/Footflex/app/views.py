@@ -313,14 +313,42 @@ def kids(req):
         return redirect(ff_login)    
 def details(req,pid):
     data=Product.objects.get(pk=pid)
-    return render(req,'user/details.html',{'products':data})
+    siz=Size.objects.filter(product=data)
+    select_size=req.session.get('size')
+    print(select_size)
+    return render(req,'user/details.html',{'products':data,'sizes':siz,'selected_size':select_size})
 
+def selectsize(req,sid):
+    siz=Size.objects.get(pk=sid)
+    req.session['size']=siz.pk
+    return redirect('details',pid=siz.product.pk)
+    
 def allproducts(req):
     data=Product.objects.all()
     return render(req,'user/allproducts.html',{'products':data})
 
-def cart(req):
-    return render(req,'cart.html')
+def view_cart(req):
+    user=User.objects.get(username=req.session['user'])
+    data=Cart.objects.filter(user=user)
+    return render(req,'user/cart.html',{'cart':data})
+
+def add_to_cart(req, pid):
+    product = Product.objects.get(pk=pid)
+    user = User.objects.get(username=req.session['user'])
+    sizes = Size.objects.get(size=req.session['size'])
+
+    try:
+        cart = Cart.objects.get(product=product, user=user)
+        cart.qty += 1
+        cart.save()
+    except Cart.DoesNotExist:
+        Cart.objects.create(product=product, user=user, size=sizes,qty=1)
+
+    return redirect('view_cart')
+
+
+
+
 
 
 def aboutus(req):
