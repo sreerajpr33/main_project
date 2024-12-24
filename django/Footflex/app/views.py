@@ -327,24 +327,49 @@ def allproducts(req):
     data=Product.objects.all()
     return render(req,'user/allproducts.html',{'products':data})
 
+# def view_cart(req):
+#     try:
+#         user = User.objects.get(username=req.session.get('user'))
+#     except User.DoesNotExist:
+#         return redirect('login') 
+#     size_id = req.session.get('size')
+#     if not size_id:
+#         return redirect('select_size')
+
+#     try:
+#         sizes = Size.objects.get(pk=size_id)
+#     except Size.DoesNotExist:
+#         return redirect('error_page')
+#     data = Cart.objects.filter(user=user, size=sizes)
+#     return render(req, 'user/cart.html', {'cart': data})
+
 def view_cart(req):
     user=User.objects.get(username=req.session['user'])
     data=Cart.objects.filter(user=user)
-    return render(req,'user/cart.html',{'cart':data})
+    sizes= req.session.get('size')
+    return render(req,'user/cart.html',{'cart':data,'size':sizes})
 
-def add_to_cart(req, pid):
-    product = Product.objects.get(pk=pid)
-    user = User.objects.get(username=req.session['user'])
-    sizes = Size.objects.get(size=req.session['size'])
-
-    try:
-        cart = Cart.objects.get(product=product, user=user)
-        cart.qty += 1
+def add_to_cart(req,pid):
+    user=User.objects.get(username=req.session['user'])
+    sizes=Size.objects.get(size=req.session['size'])
+    # sizes= req.session.get('size')
+    # print(sizes)
+    try:    
+        cart=Cart.objects.get(user=user,size=sizes)
+        cart.qty+=1
         cart.save()
-    except Cart.DoesNotExist:
-        Cart.objects.create(product=product, user=user, size=sizes,qty=1)
+    except:
+        data=Cart.objects.create(user=user,size=sizes,qty=1)
+        data.save()
+    return redirect('viewcart')
 
-    return redirect('view_cart')
+
+
+
+
+
+
+
 
 
 

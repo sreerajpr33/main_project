@@ -65,8 +65,7 @@
             <th scope="col">Product</th>
             <th scope="col">Size</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Total</th>
+            <th scope="col">price of one pair</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -74,15 +73,14 @@
             {% for i in cart %}
           <tr>
             <td>
-              <img src="{{ i.product.img.url }}" alt="{{ i.product.name }}" class="img-fluid rounded product-image">
+              <img src="{{ i.size.product.img.url }}" alt="{{ i.product.name }}" class="img-fluid rounded product-image">
             </td>
-            <td>{{ i.product.name }}</td>
-            <td>{{ i.product.size }}</td> <!-- Added the size column -->
+            <td>{{ i.size.product.name }}</td>
+            <td>{{ i.size.size }}</td> <!-- Added the size column -->
             <td>
               <input type="number" class="form-control" value="{{ i.qty }}" min="1">
             </td>
-            <td>{{ i.product.price }}</td>
-            <td>Rs{{ i.product.price|floatformat:2 }}</td>
+            <td>{{ i.size.product.price }}</td>
             <td>
               <button class="btn btn-danger btn-sm">Remove</button>
             </td>

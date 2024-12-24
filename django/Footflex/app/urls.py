@@ -23,7 +23,7 @@ urlpatterns=[
     path('kids',views.kids),
     path('allproducts',views.allproducts),
     path('buy/<pid>',views.details,name='details'),
-    path('view_cart',views.view_cart),
+    path('view_cart',views.view_cart,name='viewcart'),
     path('addcart/<pid>',views.add_to_cart),
     path('select_size/<sid>',views.selectsize),
 
