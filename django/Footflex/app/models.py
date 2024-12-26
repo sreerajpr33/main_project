@@ -40,6 +40,7 @@ class Cart(models.Model):
     size=models.ForeignKey(Size,on_delete=models.CASCADE)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     qty=models.IntegerField()
-    total_price=models.IntegerField()
+    total_price=models.IntegerField(null=True)
+
 
 

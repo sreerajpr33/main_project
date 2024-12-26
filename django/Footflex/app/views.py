@@ -351,17 +351,24 @@ def view_cart(req):
 
 def add_to_cart(req,pid):
     user=User.objects.get(username=req.session['user'])
-    sizes=Size.objects.get(size=req.session['size'])
+    sizes=Size.objects.get(pk=req.session['size'])
+    
     # sizes= req.session.get('size')
     # print(sizes)
     try:    
         cart=Cart.objects.get(user=user,size=sizes)
         cart.qty+=1
+        cart.total_price=cart.qty*sizes.product.price
         cart.save()
     except:
         data=Cart.objects.create(user=user,size=sizes,qty=1)
         data.save()
     return redirect('viewcart')
+
+def remove_cart(req,cid):
+    data=Cart.objects.get(pk=cid)
+    data.delete()
+    return redirect(view_cart)
 
 
 
