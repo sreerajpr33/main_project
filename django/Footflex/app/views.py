@@ -370,6 +370,23 @@ def remove_cart(req,cid):
     data.delete()
     return redirect(view_cart)
 
+def buying(req,pid):
+    user=User.objects.get(username=req.session['user'])
+    sizes=Size.objects.get(pk=req.session['size'])
+    qty=1
+    total_price=sizes.product.offer_price
+    buy=Buy.objects.create(size=sizes,user=user,qty=qty,total_price=total_price)
+    buy.save()
+    return render(req,'user/buy.html',{'user':user,'products':sizes})
+    
+
+def bookings(req):
+    user=User.objects.get(username=req.session['user'])
+    buy=Buy.objects.filter(user=user)[::-1]
+    return render(req,'user/bookings.html',{'bookings':buy})
+    
+
+
 
 
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>buy details</title>
+  {%load static%}
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+  <style>
+    .fdiv{
+        width:100%;
+        height:30px;
+        text-align:center;
+        background-color: black;
+        color:white;
+    }
+    .container1{
+        display: flex;
+        gap: 15vw;
+    }
+
+    @media (max-width: 768px) {
+        .container1 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        /* Reorder ctn-3 to come before ctn-2 */
+        .ctn-3 {
+            order: -1; /* This makes ctn-3 come before ctn-2 on smaller screens */
+        }
+
+        .ctn-2 {
+            margin-left: 0;
+        }
+    }
+  </style>
+</head>
+<body>
+    <div class="fdiv"><b>F O O T F L E X</b></div>
+    <div class="container container1 text-dark">
+        <div class="container ctn-2 text-justify mt-4">
+            <h4>DELIVERY</h4>
+            <p>Customs regulation for India require a copy of the recipient's KYC. The address on the KYC needs to match the shipping address. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns.</p>
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" required>
+                </div>
+                <button class="btn btn-outline-info"> PLACE ORDER</button>
+            </form>
+        </div>
+        <div class="container ctn-3 mt-4">
+            <h4 class="">{{products.product.name}}</h4>
+            <img src="{{products.product.img.url}}" alt="" style="width:25vw;">
+            <p>Price : <span class="text-decoration-line-through">Rs {{products.product.price}}</span></p>
+            <p class="text-success">Offer Price : <span>Rs {{products.product.offer_price}}</span></p>
+            <p>Quantity : 1</p>
+        </div>
+    </div>
+</body>
+</html>
