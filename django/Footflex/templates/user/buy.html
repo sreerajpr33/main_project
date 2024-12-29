@@ -47,13 +47,10 @@
             <h4>DELIVERY</h4>
             <p>Customs regulation for India require a copy of the recipient's KYC. The address on the KYC needs to match the shipping address. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns.</p>
             <form action="" method="POST">
+                {%csrf_token%}
                 <div class="mb-3">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" required>
-                </div>
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    <label for="firstName" class="form-label">Name</label>
+                    <div>{{products.user.first_name}}</div>
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Address</label>
@@ -61,17 +58,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="" required>
+                    <input  class="form-control" id="phone" name="phone"  placeholder="" required>
                 </div>
-                <button class="btn btn-outline-info"> PLACE ORDER</button>
+                <button type="submit"class="btn btn-outline-info"> PLACE ORDER</button>
             </form>
         </div>
         <div class="container ctn-3 mt-4">
-            <h4 class="">{{products.product.name}}</h4>
-            <img src="{{products.product.img.url}}" alt="" style="width:25vw;">
-            <p>Price : <span class="text-decoration-line-through">Rs {{products.product.price}}</span></p>
-            <p class="text-success">Offer Price : <span>Rs {{products.product.offer_price}}</span></p>
-            <p>Quantity : 1</p>
+            <h4 class="">{{products.size.product.name}}</h4>
+            <img src="{{products.size.product.img.url}}" alt="" style="width:25vw;">
+            <p class="text-success">Offer Price per single piece : <span>Rs {{products.size.product.offer_price}}</span></p>
+            <p>Quantity :{{products.qty}}</p>
+            <p class="text-success">Total Price : <span>Rs {{products.total_price}}</span></p>
         </div>
     </div>
 </body>

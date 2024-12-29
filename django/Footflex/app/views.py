@@ -160,7 +160,7 @@ def addpro(req):
     if 'shop' in req.session: 
         if req.method=='POST':
             pid=req.POST['pid']
-            name=req.POST['name']
+            name=req.POST['name'].upper()
             dis=req.POST['dis']
             price=req.POST['price']
             offer_price=req.POST['offer_price']
@@ -312,11 +312,14 @@ def kids(req):
     else:
         return redirect(ff_login)    
 def details(req,pid):
-    data=Product.objects.get(pk=pid)
-    siz=Size.objects.filter(product=data)
-    select_size=req.session.get('size')
-    print(select_size)
-    return render(req,'user/details.html',{'products':data,'sizes':siz,'selected_size':select_size})
+    if 'user'in req.session:
+        data=Product.objects.get(pk=pid)
+        siz=Size.objects.filter(product=data)
+        select_size=req.session.get('size')
+        print(select_size)
+        return render(req,'user/details.html',{'products':data,'sizes':siz,'selected_size':select_size})
+    else:
+        return redirect(ff_login)    
 
 def selectsize(req,sid):
     siz=Size.objects.get(pk=sid)
@@ -324,8 +327,11 @@ def selectsize(req,sid):
     return redirect('details',pid=siz.product.pk)
     
 def allproducts(req):
-    data=Product.objects.all()
-    return render(req,'user/allproducts.html',{'products':data})
+    if 'user'in req.session:
+        data=Product.objects.all()
+        return render(req,'user/allproducts.html',{'products':data})
+    else:
+        return redirect(ff_login) 
 
 # def view_cart(req):
 #     try:
@@ -344,66 +350,92 @@ def allproducts(req):
 #     return render(req, 'user/cart.html', {'cart': data})
 
 def view_cart(req):
-    user=User.objects.get(username=req.session['user'])
-    data=Cart.objects.filter(user=user)
-    sizes= req.session.get('size')
-    return render(req,'user/cart.html',{'cart':data,'size':sizes})
+    if 'user'in req.session:
+        user=User.objects.get(username=req.session['user'])
+        data=Cart.objects.filter(user=user)
+        sizes= req.session.get('size')
+        return render(req,'user/cart.html',{'cart':data,'size':sizes})
+    else:
+        return redirect(ff_login)
 
-def add_to_cart(req,pid):
-    user=User.objects.get(username=req.session['user'])
-    sizes=Size.objects.get(pk=req.session['size'])
-    
-    # sizes= req.session.get('size')
-    # print(sizes)
-    try:    
-        cart=Cart.objects.get(user=user,size=sizes)
-        cart.qty+=1
-        cart.total_price=cart.qty*sizes.product.price
-        cart.save()
-    except:
-        data=Cart.objects.create(user=user,size=sizes,qty=1)
-        data.save()
-    return redirect('viewcart')
+def add_to_cart(req, pid):
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        sizes = Size.objects.get(pk=req.session['size'])
+        product_price = sizes.product.offer_price
+        
+        try:
+            cart = Cart.objects.get(user=user, size=sizes)
+            cart.qty += 1
+            cart.total_price = cart.qty * product_price
+            cart.save()
+        except Cart.DoesNotExist:
+            total_price = product_price
+            Cart.objects.create(user=user, size=sizes, total_price=total_price, qty=1)
+        
+        return redirect('viewcart')
+    else:
+        return redirect('ff_login')
+
 
 def remove_cart(req,cid):
     data=Cart.objects.get(pk=cid)
     data.delete()
     return redirect(view_cart)
 
-def buying(req,pid):
-    user=User.objects.get(username=req.session['user'])
-    sizes=Size.objects.get(pk=req.session['size'])
-    qty=1
-    total_price=sizes.product.offer_price
-    buy=Buy.objects.create(size=sizes,user=user,qty=qty,total_price=total_price)
-    buy.save()
-    return render(req,'user/buy.html',{'user':user,'products':sizes})
+def cart_buy(req, cid):
+    if 'user'in req.session:
+        cart = Cart.objects.get(pk=cid)
+        if req.method == 'POST':
+            address = req.POST.get('address')
+            phno = req.POST.get('phone')
+            user=User.objects.get(username=req.session['user'])
+            sizes=Size.objects.get(pk=req.session['size'])
+            total_price=sizes.product.offer_price
+            qty=cart.qty
+            if address and phno:
+                try:
+                    Buy.objects.create(size=sizes,user=user,address=address,total_price=total_price,qty=qty,phone=phno)
+                    return redirect('orders')
+                except:
+                    pass
+            else:
+                return render(req, 'user/buy.html', {'products': cart, 'error': 'Address and phone are required.'})
+
+        return render(req, 'user/buy.html', {'products': cart})
+    else:
+        return redirect(ff_login)
+
+
+# def buying(req,pid):
+#     user=User.objects.get(username=req.session['user'])
+#     sizes=Size.objects.get(pk=req.session['size'])
+#     qty=1
+#     total_price=sizes.product.offer_price
+#     buy=Buy.objects.create(size=sizes,user=user,qty=qty,total_price=total_price)
+#     buy.save()
+#     return render(req,'user/buy.html',{'user':user,'products':sizes})
     
 
-def bookings(req):
-    user=User.objects.get(username=req.session['user'])
-    buy=Buy.objects.filter(user=user)[::-1]
-    return render(req,'user/bookings.html',{'bookings':buy})
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
+def orders(req):
+    if 'user'in req.session:
+        user=User.objects.get(username=req.session['user'])
+        buy=Buy.objects.filter(user=user)[::-1]
+        return render(req, 'user/orders.html', {'orders':buy})
+    else:
+        return redirect(ff_login)
 
 
 def aboutus(req):
-    return render(req,'user/aboutus.html')
+    if 'user'in req.session:
+        return render(req,'user/aboutus.html')
+    else:
+        return redirect(ff_login)
 
 def contactus(req):
-    return render(req,'user/contactus.html')
+    if 'user'in req.session:
+        return render(req,'user/contactus.html')
+    else:
+        return redirect(ff_login)
 
     

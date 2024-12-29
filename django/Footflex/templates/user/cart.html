@@ -22,9 +22,9 @@
     <div class="fdiv"><b>F O O T F L E X</b></div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="user_home">
                 <img src="{% static 'img/FOOTFLEX.png' %}" alt="" class="navlogo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -41,7 +41,7 @@
                 </ul>
                 <form class="d-flex">
                     <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;">
-                    <img src="{% static 'img/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4">
+                    <a href="../orders"><img src="{% static 'img/delivery_truck_speed_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                     <img src="{% static 'img/shopping_cart_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4">
                 </form>
             </div>
@@ -82,7 +82,7 @@
             </td>
             <td>{{ i.size.product.price }}</td>
             <td>
-              <button class="btn btn-success btn-sm">BUY</button>
+              <a href="../buying/{{i.pk}}"><button class="btn btn-success btn-sm">BUY</button></a>
             </td>
             <td>
               <a href="removeCart/{{i.pk}}"><button class="btn btn-danger btn-sm">REMOVE</button></a>

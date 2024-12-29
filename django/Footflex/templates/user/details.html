@@ -39,6 +39,10 @@
       color: rgb(24, 194, 24);
       font-weight: bold;
     }
+    .cartdis{
+        font-size: 10px;
+        margin-top: 10px;
+    }
     </style>
 </head>
 <body>
@@ -46,7 +50,7 @@
     <div class="fdiv"><b>F O O T F L E X</b></div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="../">
                 <img src="{% static 'img/FOOTFLEX.png' %}" alt="" class="navlogo">
@@ -65,7 +69,7 @@
                 </ul>
                 <form class="d-flex">
                     <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;">
-                    <img src="{% static 'img/favorite_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4">
+                    <a href="../orders"><img src="{% static 'img/delivery_truck_speed_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                     <a href="../view_cart"><img src="{% static 'img/shopping_cart_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                 </form>
             </div>
@@ -83,10 +87,10 @@
     <div class="container mt-5">
         <div class="card shadow-sm">
             <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{{products.img.url}}" class="img-fluid rounded-start" alt="Product Image" style="height:100%">
+                <div class="col-md-6">
+                    <img src="{{products.img.url}}" class="img-fluid rounded-start" alt="Product Image">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="margin-left: 5vw;">
                     <div class="card-body">
                         <h5 class="card-title"><h1>{{products.name}}</h1></h5>
                         <p class="card-text"><strong>Brand : </strong>{{products.brand.name}}</p>
@@ -96,7 +100,7 @@
                             <strong>Description:</strong> {{products.dis}}
                         </p>
                         
-                        <div style="display:flex"><strong>Size:</strong>
+                        <div style="display:flex"><strong> <span class="text-danger">Select</span> Size:</strong>
                             {% for size in sizes %}
                                 <a href="../select_size/{{ size.pk }}" style="text-decoration: none; color: black;">
                                     <div 
@@ -113,9 +117,8 @@
                         
                         <p class="card-text" style="text-decoration: line-through; text-decoration-color:red ;"><strong>Price : </strong>{{products.price}}</p>
                         <p class="card-text"><strong>Price : </strong>{{products.offer_price}}</p>
-                        <a href="../buying/{{products.pk}}" class="btn btn-outline-info">buy now</a>
                         <a href="../addcart/{{products.pk}}"class="btn btn-outline-info">add to cart</a>
-                        
+                        <p class="cartdis">add to cart and buy this product !</p>
                     </div>
                 </div>
             </div>
