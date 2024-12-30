@@ -14,6 +14,7 @@ urlpatterns=[
     path('viewproduct',views.viewprd),
     path('updates/<cid>',views.updateproduct,name='updateproduct'),
     path('updatesize/<sid>',views.updatesize),
+    path('viewbookings',views.view_booking),
     # user,
     path('user_home',views.user_home),
     path('aboutus',views.aboutus),

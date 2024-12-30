@@ -51,10 +51,12 @@ class Buy(models.Model):
     phone=models.CharField(max_length=15)
     address=models.TextField()
 
-class Contact(models.Model):
-    phone=models.CharField(max_length=15)
-    address=models.TextField()
-    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True, blank=True)
+class Reviews(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    review=models.TextField()
+
+
+
 
 
 

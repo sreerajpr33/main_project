@@ -133,7 +133,7 @@ footer .footer-link:hover {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     .navbar {
         height: auto;
     }

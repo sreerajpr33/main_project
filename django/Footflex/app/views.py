@@ -82,7 +82,7 @@ def carousel(req):
         else:
             return render(req,'shop/carousels.html')
     else:
-        return render(ff_login)
+        return redirect(ff_login)
 def banner2(req):
     if 'shop' in req.session:
         if req.method == 'POST':
@@ -119,7 +119,8 @@ def banner2(req):
             return redirect(banner2)
         else:
             return render(req, 'shop/banner2.html')
-
+    else:
+        return redirect(ff_login)
 
     
 def brand(req):
@@ -136,7 +137,7 @@ def brand(req):
         brands=Brand.objects.all()
         return render(req,'shop/brand.html',{'brands':brands})
     else:
-        return render(ff_login)
+        return redirect(ff_login)
     
 def addcat(req):
     if 'shop' in req.session:
@@ -152,7 +153,7 @@ def addcat(req):
         category=Category.objects.all()
         return render(req,'shop/category.html',{'category':category})
     else:
-        return render(ff_login)
+        return redirect(ff_login)
 
 
 
@@ -178,7 +179,7 @@ def addpro(req):
             category=Category.objects.all()
             return render(req,'shop/addpro.html',{'brands':brands,'category':category})                                                                                             #not completed
     else:
-        return render(ff_login)
+        return redirect(ff_login)
 
 def sizes(req):
     if 'shop' in req.session:
@@ -194,7 +195,7 @@ def sizes(req):
             productss=Product.objects.all()
         return render(req,'shop/size.html',{'products':productss})
     else:
-        return render(ff_login)
+        return redirect(ff_login)
     
 def viewprd(req):
     if 'shop' in req.session:
@@ -202,54 +203,58 @@ def viewprd(req):
         # brd=Brand.objects.get()
         return render(req,'shop/viewproduct.html',{'products':pro})
     else:
-        return render(ff_login)
+        return redirect(ff_login)
     
 
 def updateproduct(req,cid):
-    if req.method == 'POST':
-        pid = req.POST['pid']
-        name = req.POST['name']
-        dis = req.POST['dis']
-        price = req.POST['price']
-        offer_price = req.POST['offer_price']
-        color = req.POST['color']
-        image = req.FILES.get('img')
-        brands = req.POST['brand']
-        category = req.POST['category']
+    if 'shop' in req.session:
+        if req.method == 'POST':
+            pid = req.POST['pid']
+            name = req.POST['name']
+            dis = req.POST['dis']
+            price = req.POST['price']
+            offer_price = req.POST['offer_price']
+            color = req.POST['color']
+            image = req.FILES.get('img')
+            brands = req.POST['brand']
+            category = req.POST['category']
 
-        cat = Category.objects.get(pk=category)
-        brd = Brand.objects.get(pk=brands)
+            cat = Category.objects.get(pk=category)
+            brd = Brand.objects.get(pk=brands)
 
-        if image:
-            Product.objects.filter(pk=cid).update(
-                pid=pid, name=name, dis=dis, price=price, 
-                offer_price=offer_price, color=color, img=image, 
-                category=cat, brand=brd
-            )
-            data = Product.objects.get(pk=cid)
-            data.img = image
-            data.save()
-        else:
-            Product.objects.filter(pk=cid).update(
-                pid=pid, name=name, dis=dis, price=price, 
-                offer_price=offer_price, color=color, 
-                category=cat, brand=brd
-            )
+            if image:
+                Product.objects.filter(pk=cid).update(
+                    pid=pid, name=name, dis=dis, price=price, 
+                    offer_price=offer_price, color=color, img=image, 
+                    category=cat, brand=brd
+                )
+                data = Product.objects.get(pk=cid)
+                data.img = image
+                data.save()
+            else:
+                Product.objects.filter(pk=cid).update(
+                    pid=pid, name=name, dis=dis, price=price, 
+                    offer_price=offer_price, color=color, 
+                    category=cat, brand=brd
+                )
 
-        return redirect(viewprd)
-
-    else:
-        try:
-            data = Product.objects.get(pk=cid)
-            brands = Brand.objects.all()
-            categories = Category.objects.all()
-            size=Size.objects.filter(product=data)
-            print (size)
-            return render(req, 'shop/update.html', {'data': data, 'brands': brands, 'categories': categories,'sizes':size})
-        except:
             return redirect(viewprd)
 
+        else:
+            try:
+                data = Product.objects.get(pk=cid)
+                brands = Brand.objects.all()
+                categories = Category.objects.all()
+                size=Size.objects.filter(product=data)
+                print (size)
+                return render(req, 'shop/update.html', {'data': data, 'brands': brands, 'categories': categories,'sizes':size})
+            except:
+                return redirect(viewprd)
+    else:
+        return redirect(ff_login)
+
 def updatesize(req,sid):
+    if 'shop' in req.session:
         if req.method=='POST':
             size=req.POST['size']
             stock=req.POST['stock']
@@ -261,6 +266,15 @@ def updatesize(req,sid):
         else:
             productss=Product.objects.get(pk=sid)
         return render(req,'shop/size.html',{'products':productss})
+    else:
+        return redirect(ff_login)
+
+def view_booking(req):
+    if 'shop' in req.session:
+        buy=Buy.objects.all()
+        return render(req,'shop/viewbookings.html',{'orders':buy})
+    else:
+        return redirect(ff_login)
 
 
 # --------------------user-------------------
@@ -428,13 +442,19 @@ def orders(req):
 
 def aboutus(req):
     if 'user'in req.session:
-        return render(req,'user/aboutus.html')
+        review=Reviews.objects.all()
+        return render(req,'user/aboutus.html',{'reviews':review})
     else:
         return redirect(ff_login)
 
 def contactus(req):
     if 'user'in req.session:
-        return render(req,'user/contactus.html')
+        user=User.objects.get(username=req.session['user'])
+        if req.method=='POST':
+            review= req.POST.get('review')
+            data=Reviews.objects.create(user=user,review=review)
+            data.save()
+        return render(req,'user/contactus.html',{'user':user})
     else:
         return redirect(ff_login)
 

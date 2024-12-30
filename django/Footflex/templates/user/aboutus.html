@@ -10,7 +10,7 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
         body {
-            background-color: black;
+            background-color: rgb(0, 0, 0);
             font-family: "Exo 2", sans-serif;
             margin: 0;
         }
@@ -84,11 +84,61 @@
 .banner1{
     height:70vh;
 }
+.review-box{
+    min-width: 20vw;
+    height:20vh;
+    color:rgb(0, 0, 0);
+    border:1px solid white;
+    margin-left: 20px;
+    border-radius: 20px;
+    background-color: grey;
+    margin-bottom: 20px;
+}
+.review-box ul{
+    list-style-type:none;
+}
+.rev{
+    display:flex;
+    overflow-y: hidden;
+    height: auto;
+}
+.rev {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    height: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: gold black; /* Scrollbar track and thumb colors */
+}
+
+/* WebKit-based browsers (Chrome, Edge, Safari) */
+.rev::-webkit-scrollbar {
+    height: 1px; /* Horizontal scrollbar height */
+}
+
+.rev::-webkit-scrollbar-track {
+    background: black; /* Scrollbar track color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.rev::-webkit-scrollbar-thumb {
+    background-color: gold; /* Scrollbar thumb color */
+    border-radius: 5px; /* Rounded corners */
+    border: 2px solid black; /* Add padding around the thumb */
+}
+
+.rev::-webkit-scrollbar-thumb:hover {
+    background-color: #ffcc00; /* Hover color for scrollbar thumb */
+}
+
         @media (max-width: 768px) {
             .navbar {
                 height: auto;
                 background-color: white;
             }
+            .review-box{
+    min-width: 40vw;
+}
         }
     </style>
 </head>
@@ -149,10 +199,31 @@
             <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
         </div>
         <!-- body -->
-        <div class=" bg-light banner1"><img src="{%static 'img/story.png'%}" alt=""  style="width:100%; height: 100%;"></div>
+        <div class=" img-fluid"><img src="{%static 'img/story.png'%}" alt=""  style="width:100%; height: 100%;"></div>
 
+        <div class="container text-light text-left mt-5">Footflex is a premium online destination for footwear enthusiasts, offering a vast collection of shoes for men, women, and children. With a commitment to quality, style, and comfort, Footflex caters to diverse needs, whether you're looking for performance-driven sports shoes, elegant formal footwear, or trendy casual styles.</div>
+        <div class="container text-light mt-5"><p>Diverse Selection: Explore a curated range of footwear for every occasion, including running, hiking, office wear, and daily casuals. We ensure you find the perfect fit for your lifestyle.
+
+            Quality Craftsmanship: Footflex collaborates with trusted brands and artisans to deliver footwear that combines durability with cutting-edge design.
+            
+            Affordable Prices: Enjoy competitive pricing and frequent discounts, making high-quality footwear accessible to everyone.
+            
+            Sustainability Commitment: Footflex is dedicated to eco-friendly practices, offering sustainable footwear options that reduce environmental impact.
+            
+            Customer-Centric Service: With seamless navigation, detailed product descriptions, and a responsive support team, Footflex ensures a delightful shopping experience from browsing to delivery.</p></div>
+            <h3 class="text-center text-light">USER REVIEWS</h3>
+            <div class="container rev">
+            {%for review in reviews%}
+            <div class="review-box">
+                <ul>
+                    <li><strong>Name : {{review.user.first_name}}</strong></li>
+                    <li><p>{{review.review}}</p></li>
+                </ul>
+            </div>
+            {%endfor%}
+        </div>
     <!-- footer -->
-    <footer style="background-color: #222; color: #fff; padding: 40px 20px;">
+    <footer style="background-color: #222; color: #fff; padding: 40px 20px; margin-top: 30px;">
         <div style="max-width: 1200px; margin: auto;">
     
             <!-- Row 1: Links -->
