@@ -31,7 +31,7 @@ def ff_login(req):
                 req.session['user']=uname
                 return redirect(user_home)
         else:
-            messages.info(req, " ")
+            messages.info(req, "")
             return redirect(ff_login)
     else:
         return render(req,'Login.html')
@@ -271,7 +271,7 @@ def updatesize(req,sid):
 
 def view_booking(req):
     if 'shop' in req.session:
-        buy=Buy.objects.all()
+        buy=Buy.objects.all()[::-1]
         return render(req,'shop/viewbookings.html',{'orders':buy})
     else:
         return redirect(ff_login)
@@ -364,11 +364,15 @@ def allproducts(req):
 #     return render(req, 'user/cart.html', {'cart': data})
 
 def view_cart(req):
-    if 'user'in req.session:
-        user=User.objects.get(username=req.session['user'])
-        data=Cart.objects.filter(user=user)
-        sizes= req.session.get('size')
-        return render(req,'user/cart.html',{'cart':data,'size':sizes})
+    if 'user' in req.session:
+        user = User.objects.get(username=req.session['user'])
+        data = Cart.objects.filter(user=user)
+        sizes = req.session.get('size')
+        
+        # Calculate the grand total
+        grand_total = sum(item.qty * item.size.product.price for item in data)
+        
+        return render(req, 'user/cart.html', {'cart': data, 'size': sizes, 'grand_total': grand_total})
     else:
         return redirect(ff_login)
 
@@ -457,5 +461,20 @@ def contactus(req):
         return render(req,'user/contactus.html',{'user':user})
     else:
         return redirect(ff_login)
-
     
+# def search(request):
+#     query = request.GET.get('query', '').upper()  # Convert query to uppercase
+#     products = Product.objects.annotate(upper_name=('name')).filter(upper_name__icontains=query) if query else []
+#     print(products)
+#     return render(request, 'user/search.html', {'products': products})
+
+def search(req):
+    if 'user' in req.session:
+        if req.method == 'POST':
+            data = req.POST.get('search').upper()
+            search = Product.objects.filter(name=data)  
+            return render(req, 'user/search.html', {'products': search})
+        else:
+            return redirect(user_home)
+    else:
+        return redirect(ff_login) 

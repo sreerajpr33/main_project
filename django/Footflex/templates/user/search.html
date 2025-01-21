@@ -43,7 +43,7 @@
     <div class="fdiv"><b>F O O T F L E X</b></div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg mb-1 ">
+    <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid">
             <a class="navbar-brand" href="../">
                 <img src="{% static 'img/FOOTFLEX.png' %}" alt="" class="navlogo">
@@ -61,7 +61,7 @@
                     <li class="nav-item ms-4"><a class="nav-link" href="logout"><b>LOGOUT</b></a></li>
                 </ul>
                 <form class="d-flex">
-                    {% comment %} <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;"> {% endcomment %}
+                    <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;">
                     <a href="../orders"><img src="{% static 'img/delivery_truck_speed_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                     <a href="view_cart"><img src="{% static 'img/shopping_cart_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                 </form>
@@ -70,34 +70,40 @@
     </nav>
 
     <!-- Search bar -->
-    {% comment %} <div class="search-bar-container">
+    <div class="search-bar-container">
         <form class="container">
             <input type="text" class="form-control" placeholder="Search..." id="searchInput">
         </form>
-    </div> {% endcomment %}
-
-    <!-- body -->
-    <div class="container text-info" style="text-align: center;"><h1><u><b>K I D S</b></u></h1></div>
+    </div>
 
     <!-- cards -->
     <div class="container mt-5">
         <div class="row d-flex flex-wrap">
-            {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="product-card">
-                    <a href="buy/{{product.pk}}"><img src="{{product.img.url}}" alt="Product Image" class="product-image"></a>
-                    <div class="p-3">
-                        <h5 class="product-name" style="color:gold;">{{product.name}}</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="product-price" style="color:red">Rs {{product.price}}</div>
-                            <div class="offer-price">offer price Rs {{product.offer_price}}</div>
+            {% if products %}
+                {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="product-card border rounded shadow-sm">
+                        <a href="buy/{{ product.pk }}">
+                            <img src="{{ product.img.url }}" alt="Product Image" class="product-image img-fluid rounded-top">
+                        </a>
+                        <div class="p-3">
+                            <h5 class="product-name text-warning">{{ product.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <div class="product-price text-danger fw-bold">Rs {{ product.price }}</div>
+                                <div class="offer-price text-success fw-bold">Offer: Rs {{ product.offer_price }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No products found</p>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
+    
 
     <!-- Footer -->
     <footer class="mt-5">

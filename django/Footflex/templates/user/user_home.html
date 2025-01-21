@@ -35,7 +35,7 @@
                     <li class="nav-item ms-4"><a class="nav-link" href="logout"><b>LOGOUT</b></a></li>
                 </ul>
                 <form class="d-flex">
-                    <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;">
+                    {% comment %} <img src="{% static 'img/search_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4 search-icon" style="cursor: pointer;"> {% endcomment %}
                     <a href="../orders"><img src="{% static 'img/delivery_truck_speed_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                     <a href="view_cart"><img src="{% static 'img/shopping_cart_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}" alt="" class="me-4"></a>
                 </form>
@@ -44,11 +44,13 @@
     </nav>
 
     <!-- Search bar -->
-    <div class="search-bar-container">
-        <form class="container">
-            <input type="text" class="form-control" placeholder="Search..." id="searchInput">
+    {% comment %} <div class="search-bar-container">
+        <form class="container d-flex" method="POST">
+            {%csrf_token%}
+            <input type="text" class="form-control flex-grow-1 me-2" placeholder="Search..." id="searchInput" name="search">
+            <a href="search" class="btn btn-outline-primary">GO</a>
         </form>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Carousel -->
     <div id="demo" class="carousel slide" data-bs-ride="carousel">
